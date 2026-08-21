@@ -292,9 +292,13 @@ def build_payload(entry, feed_cfg: dict, config: dict) -> dict:
     if avatar_url:
         payload["avatar_url"] = avatar_url
 
+    # Google ニュースなどのアグリゲータでは、記事を書いた媒体名が source に入る
+    publisher = (entry.get("source") or {}).get("title", "")
+
     if config.get("message_style", "embed") == "plain":
         # URL をそのまま貼る形式。Discord 側が自動でプレビューを展開する。
-        payload["content"] = f"**{source}**｜{title}\n{link}"
+        label = f"{source}｜{publisher}" if publisher else source
+        payload["content"] = f"**{label}**｜{title}\n{link}"
         return payload
 
     embed = {
@@ -302,7 +306,8 @@ def build_payload(entry, feed_cfg: dict, config: dict) -> dict:
         "url": link,
         "color": feed_cfg.get("color", 5814783),
         "author": {"name": source, "url": feed_cfg.get("site_url", link)},
-        "footer": {"text": source},
+        # Google ニュースのように配信元がまとまっているフィードでは元媒体名も出す
+        "footer": {"text": f"{source}｜{publisher}" if publisher else source},
     }
     summary = entry_summary(entry, config.get("summary_length", 300))
     if summary:
