@@ -829,6 +829,8 @@ def main() -> int:
     parser.add_argument("--sample", type=int, metavar="N",
                         help="既読かどうかに関わらず、各フィードの最新 N 件を投稿する"
                              "（state.json は変更しない。動作確認用）")
+    parser.add_argument("--only", metavar="TEXT",
+                        help="名前に TEXT を含むフィードだけを対象にする（例: --only FF14）")
     parser.add_argument("--interval", type=int, default=None,
                         help="チェック間隔（秒）。config.json より優先される")
     args = parser.parse_args()
@@ -848,6 +850,15 @@ def main() -> int:
     if config is None:
         log(f"ERROR: {CONFIG_PATH.name} が見つかりません。")
         return 1
+    if args.only:
+        # 1 ゲーム分だけ試したいとき用。--test / --sample と組み合わせて使う。
+        config["feeds"] = [f for f in config.get("feeds", [])
+                           if args.only.lower() in f.get("name", "").lower()]
+        if not config["feeds"]:
+            log(f"ERROR: 名前に「{args.only}」を含むフィードがありません。")
+            return 1
+        log(f"--only {args.only}: {len(config['feeds'])} フィードに絞り込みました")
+
     state = load_json(STATE_PATH, {"feeds": {}})
     state.setdefault("feeds", {})
 
