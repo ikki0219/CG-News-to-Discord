@@ -19,6 +19,13 @@
     ],
     "color": 16744192
   },
+  "event_list": {
+    "enabled": true,
+    "daily_hour": 9,
+    "post_on_new": true,
+    "max_items": 20,
+    "color": 3447003
+  },
   "feeds": [
     {
       "name": "CGWORLD.jp",
@@ -236,7 +243,8 @@
       "include_keywords": [],
       "exclude_keywords": [],
       "fetch_og_image": false,
-      "webhook_env": "DISCORD_WEBHOOK_URL_FF14"
+      "webhook_env": "DISCORD_WEBHOOK_URL_FF14",
+      "detect_event_period": true
     },
     {
       "name": "FF14公式 / Lodestone お知らせ",
