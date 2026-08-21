@@ -135,7 +135,7 @@ schtasks /create /tn "CG News Discord Bot" /tr "K:\discord\check-once.bat" /sc m
 | `max_posts_per_feed` | 1 回のチェックでフィードごとに投稿する上限。溢れた分は既読化される |
 | `post_delay_seconds` | 連投時の待ち時間。Discord のレート制限対策 |
 | `message_style` | `embed`（カード表示）か `plain`（タイトル + URL のみ） |
-| `include_url_in_content` | 埋め込みに加えて本文にも生 URL を残す（コピーしやすい） |
+| `include_url_in_content` | 埋め込みに加えて本文にも生 URL を残す（既定 `false`） |
 | `show_thumbnail` / `large_image` | サムネイルを出すか / 大きい画像で出すか |
 | `fetch_og_image` | フィードが画像を持たないとき、記事ページから og:image や本文画像を探す |
 | `summary_length` | 本文抜粋の最大文字数 |

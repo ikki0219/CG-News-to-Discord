@@ -325,10 +325,10 @@ def build_payload(entry, feed_cfg: dict, config: dict) -> dict:
             embed["image" if config.get("large_image", False) else "thumbnail"] = {"url": thumb}
 
     payload["embeds"] = [embed]
-    if config.get("include_url_in_content", True):
-        # 埋め込みだけだと URL をコピーしづらいので、本文にも生 URL を残す。
+    if config.get("include_url_in_content", False):
+        # 本文にも生 URL を置く。埋め込みタイトルからも記事へ飛べるので既定では付けない。
+        # （ここで flags=4 を付けると自前の埋め込みごと消えるので絶対に付けないこと）
         payload["content"] = link
-        payload["flags"] = 4  # SUPPRESS_EMBEDS: content 側の自動プレビューを抑止
     return payload
 
 

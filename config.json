@@ -6,10 +6,10 @@
   "post_delay_seconds": 1.5,
   "http_timeout": 20,
   "message_style": "embed",
-  "include_url_in_content": true,
+  "include_url_in_content": false,
   "show_thumbnail": true,
   "fetch_og_image": true,
-  "large_image": false,
+  "large_image": true,
   "summary_length": 300,
   "feeds": [
     {
