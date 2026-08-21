@@ -7,3 +7,6 @@ state.json.tmp
 
 # state.json は無視しません。
 # GitHub Actions が既読状態を引き継ぐためにコミットする必要があります。
+
+# ツールが吐く一時ファイル
+*.stackdump

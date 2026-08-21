@@ -20,6 +20,7 @@ import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urljoin
 
 try:
     import feedparser
@@ -36,6 +37,19 @@ USER_AGENT = "Mozilla/5.0 (compatible; cg-news-discord-bot/1.0)"
 SEEN_LIMIT = 400  # フィードごとに覚えておく既読 ID の上限
 TAG_RE = re.compile(r"<[^>]+>")
 IMG_RE = re.compile(r"<img[^>]+src=[\"']([^\"']+)[\"']", re.IGNORECASE)
+META_RE = re.compile(r"<meta\b[^>]*>", re.IGNORECASE)
+META_KEY_RE = re.compile(r"(?:property|name)\s*=\s*[\"']([^\"']+)[\"']", re.IGNORECASE)
+META_CONTENT_RE = re.compile(r"content\s*=\s*[\"']([^\"']+)[\"']", re.IGNORECASE)
+OG_IMAGE_KEYS = ("og:image", "og:image:url", "og:image:secure_url",
+                 "twitter:image", "twitter:image:src")
+IMG_TAG_RE = re.compile(r"<img\b[^>]*>", re.IGNORECASE)
+SRC_RE = re.compile(r"\bsrc\s*=\s*[\"']([^\"']+)[\"']", re.IGNORECASE)
+DIM_RE = re.compile(r"\b(?:width|height)\s*=\s*[\"']?(\d+)", re.IGNORECASE)
+# ロゴ・広告・アイコンなど、記事のサムネイルではない画像を除外するための手がかり
+BAD_IMG_HINTS = ("logo", "icon", "avatar", "sprite", "spacer", "blank", "pixel",
+                 "adserver", "/ads/", "banner", "badge", "placeholder", "1x1",
+                 "gravatar", "emoji")
+OG_CACHE: dict = {}
 
 
 # --------------------------------------------------------------------------- #
@@ -155,6 +169,66 @@ def entry_thumbnail(entry):
     return match.group(1) if match else None
 
 
+def pick_og_image(markup: str, base_url: str):
+    """<head> の og:image / twitter:image を取り出す。"""
+    for tag in META_RE.findall(markup):
+        key = META_KEY_RE.search(tag)
+        content = META_CONTENT_RE.search(tag)
+        if key and content and key.group(1).lower() in OG_IMAGE_KEYS:
+            return urljoin(base_url, html.unescape(content.group(1)))
+    return None
+
+
+def pick_content_image(markup: str, base_url: str):
+    """本文中の <img> から、記事サムネイルらしいものを 1 つ選ぶ。
+
+    og:image を出していないサイト（CGchannel など）向けのフォールバック。
+    ロゴや広告を掴まないよう、URL の手がかりと表示サイズで足切りする。
+    """
+    fallback = None
+    for tag in IMG_TAG_RE.findall(markup):
+        src = SRC_RE.search(tag)
+        if not src:
+            continue
+        url = urljoin(base_url, html.unescape(src.group(1)))
+        low = url.lower()
+        if not low.startswith("http") or low.endswith(".svg"):
+            continue
+        if any(hint in low for hint in BAD_IMG_HINTS):
+            continue
+        dims = [int(d) for d in DIM_RE.findall(tag)]
+        if dims and max(dims) < 300:  # 小さすぎる画像はサムネイルではない
+            continue
+        if "/uploads/" in low or dims:  # 本文画像らしさが高いものを優先
+            return url
+        fallback = fallback or url
+    return fallback
+
+
+def fetch_page_image(url: str, timeout: int):
+    """記事ページを読んでサムネイル画像の URL を探す。
+
+    フィード自体が画像を配信していないサイト向けの補完。
+    取得できなければ None を返し、投稿は画像なしで続行する。
+    """
+    if url in OG_CACHE:
+        return OG_CACHE[url]
+
+    image = None
+    try:
+        res = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=timeout, stream=True)
+        res.raise_for_status()
+        body = res.raw.read(400_000, decode_content=True)
+        res.close()
+        markup = body.decode(res.encoding or "utf-8", errors="replace")
+        image = pick_og_image(markup, url) or pick_content_image(markup, url)
+    except Exception as exc:
+        log(f"  （画像の取得をスキップしました: {exc}）")
+
+    OG_CACHE[url] = image
+    return image
+
+
 def passes_filters(entry, feed_cfg: dict) -> bool:
     """include_keywords / exclude_keywords による絞り込み。"""
     include = [k.lower() for k in feed_cfg.get("include_keywords", []) if k]
@@ -230,6 +304,9 @@ def build_payload(entry, feed_cfg: dict, config: dict) -> dict:
         embed["timestamp"] = published
     if config.get("show_thumbnail", True):
         thumb = entry_thumbnail(entry)
+        if not thumb and link and config.get("fetch_og_image", True):
+            # フィードが画像を持たない場合は記事ページから探す
+            thumb = fetch_page_image(link, config.get("http_timeout", 20))
         if thumb:
             embed["image" if config.get("large_image", False) else "thumbnail"] = {"url": thumb}
 

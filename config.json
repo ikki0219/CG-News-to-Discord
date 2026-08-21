@@ -8,6 +8,7 @@
   "message_style": "embed",
   "include_url_in_content": true,
   "show_thumbnail": true,
+  "fetch_og_image": true,
   "large_image": false,
   "summary_length": 300,
 
