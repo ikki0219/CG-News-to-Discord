@@ -32,6 +32,21 @@ Google ニュースのフィードは、個別に購読している 6 サイト�
 なお Google ニュースのリンクは `news.google.com` のリダイレクト URL のため、
 この 1 フィードだけサムネイルは付きません（`fetch_og_image: false`）。
 
+### ファイナルファンタジーXIV（FF14）
+
+ZZZ と同じ作りで、`include_keywords`（`ファイナルファンタジーXIV` / `ファイナルファンタジー14` /
+`FF14` / `FFXIV`）で FF14 の記事だけを抜き出しています。
+
+| ソース | 種類 |
+| --- | --- |
+| Lodestone トピックス / お知らせ | 公式サイトの Atom。アップデート・イベント・メンテナンス・障害情報 |
+| 4Gamer.net / GAME Watch / インサイド / Game*Spark / AUTOMATON / 電ファミニコゲーマー | 各サイトの RSS をキーワード絞り込み |
+| FINAL FANTASY XIV（YouTube） | チャンネルの新着動画（PV・コミュニティ放送など） |
+| Google ニュース検索「ファイナルファンタジーXIV」 | 上記以外の媒体（ファミ通・電撃オンライン・PR TIMES など）の取りこぼし拾い |
+
+メンテナンス・障害情報まではいらない場合は、`FF14公式 / Lodestone お知らせ` の `enabled` を
+`false` にするか、`exclude_keywords` に `メンテナンス` / `障害情報` を足してください。
+
 すべて `config.json` の `feeds` で追加・削除・無効化できます。ZZZ だけ欲しい場合は
 CG 系 4 サイトの `enabled` を `false` にしてください。
 
@@ -45,6 +60,33 @@ API から取得しています。
 どうしても X 自体を取り込みたい場合は、rss.app などの外部サービスで @ZZZ_JP の RSS URL を
 発行し、それを `feeds` に普通のフィードとして追加してください（アカウント登録が必要で、
 無料枠では更新頻度に制限があります）。
+
+#### ゲーム内イベントの期間告知と終了間近の通知
+
+HoYoLAB のお知らせ本文にある `2026/08/24 11:00（JST） ～ 2026/09/07 04:59（JST）` という
+表記から開催期間を読み取り、次の 2 つを行います。
+
+1. **告知** … 記事を投稿するとき、埋め込みに「開催期間」欄を付ける
+2. **終了間近の通知** … 終了の 72 時間前と 24 時間前に `⏰ まもなく終了` を投稿する
+
+開催中のイベントは `state.json` の `events` に控えられ、終了すると自動で消えます。
+既読・未読に関係なく登録するので、Bot を後から動かし始めても開催中のイベントを拾えます。
+
+```json
+"event_reminders": {
+  "enabled": true,
+  "hours_before": [72, 24],
+  "color": 16744192
+}
+```
+
+- `hours_before`: 終了の何時間前に通知するか。`[168, 72, 24, 3]` のように増やせます
+- 通知の間隔をまたいで起動した場合（例: 残り 20 時間で初回起動）でも、投稿は 1 通にまとまります
+- 通知先は、そのイベントを拾ったフィードと同じチャンネルです
+- 期間が延長されて終了日時が変わった場合は、通知し直します
+
+なお期間表記があるのは主に「お知らせ」（`type=1`）で、「イベント」（`type=2`）の
+キャンペーン告知には期間が書かれていないことが多く、その場合は通知の対象外です。
 
 #### HoYoLAB 公式ニュース
 
@@ -127,6 +169,11 @@ ZZZ 用のチャンネルを分けている場合は、同じ手順でもう 1 �
 - Name: `DISCORD_WEBHOOK_URL_ZZZ`
 - Secret: ZZZ チャンネルの Webhook URL
 
+FF14 用のチャンネルも同様です。
+
+- Name: `DISCORD_WEBHOOK_URL_FF14`
+- Secret: FF14 チャンネルの Webhook URL
+
 ### 3. 動作確認
 
 **Actions タブ → CG News to Discord → Run workflow** で手動実行できます。
@@ -165,6 +212,7 @@ schtasks /create /tn "CG News Discord Bot" /tr "K:\discord\check-once.bat" /sc m
 | `show_thumbnail` / `large_image` | サムネイルを出すか / 大きい画像で出すか |
 | `fetch_og_image` | フィードが画像を持たないとき、記事ページから og:image や本文画像を探す |
 | `summary_length` | 本文抜粋の最大文字数 |
+| `event_reminders` | ゲーム内イベントの終了間近通知（`enabled` / `hours_before` / `color`） |
 
 ### フィードごとの設定
 
@@ -188,6 +236,9 @@ schtasks /create /tn "CG News Discord Bot" /tr "K:\discord\check-once.bat" /sc m
 - `username` / `avatar_url`: このフィードだけ表示名・アイコンを変える（省略時は全体設定の値）
 - `fetch_og_image`: 記事ページから画像を探す処理をフィード単位で切る（省略時は全体設定の値）
 - `type`: `hoyolab` を指定すると RSS ではなく HoYoLAB ニュース API として読む（省略時は RSS/Atom）
+- `state_key`: `state.json` の既読管理に使うキー（省略時は `url`）。同じ URL のフィードを
+  ゲーム別に 2 つ置くときに指定する。FF14 側の 6 媒体は ZZZ と同じ URL を購読しているため
+  `"state_key": "ff14:<URL>"` を付けて、既読が混ざらないようにしてある
 - `webhook_env`: このフィードだけ別チャンネルに流すときの Webhook URL の**環境変数名**。
   URL 自体は `.env`（ローカル）と GitHub の Secrets（Actions）に置くので、リポジトリに漏れません。
   指定した環境変数が空の場合、そのフィードは投稿されずスキップされます
@@ -195,12 +246,13 @@ schtasks /create /tn "CG News Discord Bot" /tr "K:\discord\check-once.bat" /sc m
 
 ## チャンネルを分ける
 
-初期設定では ZZZ 系の 8 フィードが `"webhook_env": "DISCORD_WEBHOOK_URL_ZZZ"` を指しており、
-CG 系とは別のチャンネルに投稿されます。
+初期設定では ZZZ 系の 8 フィードが `"webhook_env": "DISCORD_WEBHOOK_URL_ZZZ"` を、
+FF14 系の 10 フィードが `"webhook_env": "DISCORD_WEBHOOK_URL_FF14"` を指しており、
+CG 系ともお互いとも別のチャンネルに投稿されます。
 
-1. Discord で ZZZ 用のチャンネルを作り、**チャンネルの編集 → 連携サービス → ウェブフック → 新しいウェブフック**
+1. Discord でゲーム用のチャンネルを作り、**チャンネルの編集 → 連携サービス → ウェブフック → 新しいウェブフック**
    で URL をコピー
-2. `.env` に `DISCORD_WEBHOOK_URL_ZZZ=<コピーした URL>` を追記
+2. `.env` に `DISCORD_WEBHOOK_URL_ZZZ=<コピーした URL>` / `DISCORD_WEBHOOK_URL_FF14=<コピーした URL>` を追記
 3. GitHub の Secrets にも同じ名前で登録（上記「Webhook URL を Secrets に登録する」を参照）
 4. `python bot.py --test` で確認。使っている投稿先すべてに 1 通ずつテスト投稿が飛びます
 

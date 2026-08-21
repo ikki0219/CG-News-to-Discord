@@ -18,7 +18,7 @@ import os
 import re
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from types import SimpleNamespace
 from urllib.parse import urljoin
@@ -57,6 +57,13 @@ BAD_IMG_HINTS = ("logo", "icon", "avatar", "sprite", "spacer", "blank", "pixel",
                  "gravatar", "emoji")
 OG_CACHE: dict = {}
 
+JST = timezone(timedelta(hours=9))
+# 公式のお知らせ本文にある「2026/08/24 11:00（JST） ～ 2026/09/07 04:59（JST）」を拾う
+PERIOD_RE = re.compile(
+    r"(\d{4})/(\d{1,2})/(\d{1,2})\s*(\d{1,2}):(\d{2})\s*[（(]\s*JST\s*[）)]"
+    r"\s*[〜～~\-–]\s*"
+    r"(\d{4})/(\d{1,2})/(\d{1,2})\s*(\d{1,2}):(\d{2})\s*[（(]\s*JST\s*[）)]")
+
 
 # --------------------------------------------------------------------------- #
 # 基本ユーティリティ
@@ -69,7 +76,10 @@ def load_env() -> None:
     """.env を読んで os.environ に流し込む（既存の環境変数は上書きしない）。"""
     if not ENV_PATH.exists():
         return
-    for raw in ENV_PATH.read_text(encoding="utf-8").splitlines():
+    # PowerShell の ">>" は UTF-16 や BOM 付きで書き足すことがあるので、
+    # BOM を落とし、壊れたバイトは捨てて読めるところだけ使う。
+    text = ENV_PATH.read_bytes().decode("utf-8-sig", errors="ignore")
+    for raw in text.splitlines():
         line = raw.strip()
         if not line or line.startswith("#") or "=" not in line:
             continue
@@ -235,6 +245,28 @@ def fetch_page_image(url: str, timeout: int):
     return image
 
 
+def fmt_jst(ts: float) -> str:
+    return datetime.fromtimestamp(ts, JST).strftime("%Y/%m/%d %H:%M")
+
+
+def parse_event_period(text: str):
+    """お知らせ本文から開催期間を取り出して (開始, 終了) の epoch 秒で返す。
+
+    HoYoLAB の event_start_date / event_end_date は常に "0" で使えないため、
+    本文の表記から拾う。見つからなければ None。
+    """
+    match = PERIOD_RE.search(text or "")
+    if not match:
+        return None
+    v = [int(x) for x in match.groups()]
+    try:
+        start = datetime(v[0], v[1], v[2], v[3], v[4], tzinfo=JST).timestamp()
+        end = datetime(v[5], v[6], v[7], v[8], v[9], tzinfo=JST).timestamp()
+    except ValueError:  # 2026/02/30 のような表記ゆれ
+        return None
+    return (start, end) if end > start else None
+
+
 def passes_filters(entry, feed_cfg: dict) -> bool:
     """include_keywords / exclude_keywords による絞り込み。"""
     include = [k.lower() for k in feed_cfg.get("include_keywords", []) if k]
@@ -300,12 +332,16 @@ def fetch_hoyolab(feed_cfg: dict, timeout: int):
         post_id = post.get("post_id")
         if not post_id:
             continue
+        body = post.get("content") or ""
         entry = {
             "id": f"hoyolab:{post_id}",
             "link": f"https://www.hoyolab.com/article/{post_id}",
             "title": post.get("subject", ""),
-            "summary": post.get("desc") or post.get("content") or "",
+            "summary": post.get("desc") or body,
         }
+        period = parse_event_period(body)
+        if period:
+            entry["event_period"] = period
         created = post.get("created_at")
         if created:
             # entry_timestamp() が time.mktime() で戻せるようローカル時刻の struct_time にする
@@ -366,6 +402,12 @@ def build_payload(entry, feed_cfg: dict, config: dict) -> dict:
     published = entry_iso8601(entry)
     if published:
         embed["timestamp"] = published
+    period = entry.get("event_period")
+    if period:
+        embed["fields"] = [{
+            "name": "開催期間",
+            "value": f"{fmt_jst(period[0])} 〜 {fmt_jst(period[1])}（JST）",
+        }]
     if config.get("show_thumbnail", True):
         thumb = entry_thumbnail(entry)
         fetch_image = feed_cfg.get("fetch_og_image", config.get("fetch_og_image", True))
@@ -418,11 +460,106 @@ def post_to_discord(webhook_url: str, payload: dict, timeout: int = 20) -> bool:
 # --------------------------------------------------------------------------- #
 # メイン処理
 # --------------------------------------------------------------------------- #
+def register_events(feed_cfg: dict, entries, state: dict) -> None:
+    """開催期間つきの記事を state["events"] に控える（終了間近の通知用）。
+
+    既読・未読に関係なく登録するので、Bot を後から入れても開催中のイベントを拾える。
+    """
+    events = state.setdefault("events", {})
+    now = time.time()
+    for entry in entries:
+        period = entry.get("event_period")
+        if not period:
+            continue
+        start, end = period
+        if end <= now:  # すでに終わったものは登録しない
+            continue
+        event = events.setdefault(entry_uid(entry), {})
+        if event.get("end") and abs(event["end"] - end) > 3600:
+            event["notified"] = []  # 期間が延長／変更されたら通知し直す
+        event.update({
+            "title": clean_text(entry.get("title", ""), 200),
+            "url": entry_link(entry),
+            "start": start,
+            "end": end,
+            "source": feed_cfg.get("name", ""),
+            "username": feed_cfg.get("username"),
+            "webhook_env": feed_cfg.get("webhook_env"),
+        })
+        event.setdefault("notified", [])
+
+
+def humanize_left(hours_left: float) -> str:
+    if hours_left >= 24:
+        return f"残り約 {int(hours_left // 24)} 日"
+    if hours_left >= 1:
+        return f"残り約 {int(hours_left)} 時間"
+    return f"残り約 {max(int(hours_left * 60), 1)} 分"
+
+
+def build_reminder_payload(event: dict, hours_left: float, config: dict) -> dict:
+    opts = config.get("event_reminders") or {}
+    embed = {
+        "title": f"⏰ まもなく終了: {clean_text(event.get('title', ''), 200)}",
+        "color": opts.get("color", 16744192),
+        "description": f"**{humanize_left(hours_left)}**\n終了: {fmt_jst(event['end'])}（JST）",
+        "footer": {"text": event.get("source", "")},
+    }
+    if event.get("url"):
+        embed["url"] = event["url"]
+    payload = {"embeds": [embed]}
+    if event.get("username"):
+        payload["username"] = event["username"]
+    return payload
+
+
+def check_event_reminders(config: dict, state: dict, default_webhook: str) -> int:
+    """終了が近いイベントを通知し、終わったものを state から片付ける。"""
+    opts = config.get("event_reminders") or {}
+    if not opts.get("enabled", True):
+        return 0
+    thresholds = sorted({int(h) for h in opts.get("hours_before", [72, 24])}, reverse=True)
+    events = state.setdefault("events", {})
+    now = time.time()
+    sent = 0
+
+    for uid in list(events):
+        event = events[uid]
+        end = event.get("end") or 0
+        if now >= end:
+            events.pop(uid)  # 終了済みは持ち続けない
+            continue
+
+        hours_left = (end - now) / 3600
+        notified = event.setdefault("notified", [])
+        # 通知間隔をまたいで起動した場合も 1 通で済むよう、該当分をまとめて処理する
+        due = [h for h in thresholds if hours_left <= h and h not in notified]
+        if not due:
+            continue
+
+        webhook = default_webhook
+        if event.get("webhook_env"):
+            webhook = os.environ.get(event["webhook_env"], "").strip()
+        if not webhook:
+            continue
+        if not post_to_discord(webhook, build_reminder_payload(event, hours_left, config)):
+            continue  # 送れなければ次回もう一度試す
+
+        event["notified"] = notified + due
+        sent += 1
+        log(f"  終了間近: {event.get('title', '')[:40]}（{humanize_left(hours_left)}）")
+        time.sleep(config.get("post_delay_seconds", 1.5))
+    return sent
+
+
 def process_feed(feed_cfg: dict, config: dict, state: dict, webhook_url: str,
                  mark_only: bool = False) -> int:
     """1 フィードを処理して、投稿した件数を返す。"""
     name = feed_cfg.get("name", feed_cfg["url"])
-    feed_state = state["feeds"].setdefault(feed_cfg["url"], {"seen": []})
+    # 同じ URL のフィードを別ゲーム用に 2 つ置くことがあるので、
+    # 既読の管理キーは state_key で分けられるようにする（省略時は URL）。
+    state_key = feed_cfg.get("state_key") or feed_cfg["url"]
+    feed_state = state["feeds"].setdefault(state_key, {"seen": []})
     seen = feed_state.setdefault("seen", [])
     seen_set = set(seen)
     first_run = not feed_state.get("initialized")
@@ -437,6 +574,8 @@ def process_feed(feed_cfg: dict, config: dict, state: dict, webhook_url: str,
     if parsed is None:
         log(f"  {name}: 更新なし (304)")
         return 0
+
+    register_events(feed_cfg, parsed.entries, state)
 
     def mark_seen(entry) -> None:
         uid = entry_uid(entry)
@@ -529,6 +668,8 @@ def run_once(config: dict, state: dict, webhook_url: str, mark_only: bool = Fals
             feed_cfg, config, state, target or "dry-run",
             mark_only=mark_only,
         )
+    if not mark_only:
+        total += check_event_reminders(config, state, webhook_url)
     if not NO_SAVE:
         save_json(STATE_PATH, state)
     log(f"チェック完了: 合計 {total} 件投稿")

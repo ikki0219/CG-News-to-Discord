@@ -1,5 +1,7 @@
 # Webhook URL が入っているので絶対にコミットしない
 .env
+.env.bak
+.env.local
 
 .venv/
 __pycache__/

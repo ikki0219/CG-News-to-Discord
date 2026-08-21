@@ -11,6 +11,14 @@
   "fetch_og_image": true,
   "large_image": true,
   "summary_length": 300,
+  "event_reminders": {
+    "enabled": true,
+    "hours_before": [
+      72,
+      24
+    ],
+    "color": 16744192
+  },
   "feeds": [
     {
       "name": "CGWORLD.jp",
@@ -217,6 +225,171 @@
       "include_keywords": [],
       "exclude_keywords": [],
       "webhook_env": "DISCORD_WEBHOOK_URL_ZZZ"
+    },
+    {
+      "name": "FF14公式 / Lodestone トピックス",
+      "username": "ファイナルファンタジーXIV ニュース",
+      "url": "https://jp.finalfantasyxiv.com/lodestone/news/topics.xml",
+      "site_url": "https://jp.finalfantasyxiv.com/lodestone/",
+      "color": 13149276,
+      "enabled": true,
+      "include_keywords": [],
+      "exclude_keywords": [],
+      "fetch_og_image": false,
+      "webhook_env": "DISCORD_WEBHOOK_URL_FF14"
+    },
+    {
+      "name": "FF14公式 / Lodestone お知らせ",
+      "username": "ファイナルファンタジーXIV ニュース",
+      "url": "https://jp.finalfantasyxiv.com/lodestone/news/news.xml",
+      "site_url": "https://jp.finalfantasyxiv.com/lodestone/",
+      "color": 13149276,
+      "enabled": true,
+      "include_keywords": [],
+      "exclude_keywords": [],
+      "fetch_og_image": false,
+      "webhook_env": "DISCORD_WEBHOOK_URL_FF14"
+    },
+    {
+      "name": "FF14 / 4Gamer.net",
+      "username": "ファイナルファンタジーXIV ニュース",
+      "url": "https://www.4gamer.net/rss/index.xml",
+      "site_url": "https://www.4gamer.net/",
+      "state_key": "ff14:https://www.4gamer.net/rss/index.xml",
+      "color": 13149276,
+      "enabled": true,
+      "include_keywords": [
+        "ファイナルファンタジーXIV",
+        "ファイナルファンタジー14",
+        "FF14",
+        "FFXIV"
+      ],
+      "exclude_keywords": [],
+      "webhook_env": "DISCORD_WEBHOOK_URL_FF14"
+    },
+    {
+      "name": "FF14 / GAME Watch",
+      "username": "ファイナルファンタジーXIV ニュース",
+      "url": "https://game.watch.impress.co.jp/data/rss/1.0/gmw/feed.rdf",
+      "site_url": "https://game.watch.impress.co.jp/",
+      "state_key": "ff14:https://game.watch.impress.co.jp/data/rss/1.0/gmw/feed.rdf",
+      "color": 13149276,
+      "enabled": true,
+      "include_keywords": [
+        "ファイナルファンタジーXIV",
+        "ファイナルファンタジー14",
+        "FF14",
+        "FFXIV"
+      ],
+      "exclude_keywords": [],
+      "webhook_env": "DISCORD_WEBHOOK_URL_FF14"
+    },
+    {
+      "name": "FF14 / インサイド",
+      "username": "ファイナルファンタジーXIV ニュース",
+      "url": "https://www.inside-games.jp/rss20/index.rdf",
+      "site_url": "https://www.inside-games.jp/",
+      "state_key": "ff14:https://www.inside-games.jp/rss20/index.rdf",
+      "color": 13149276,
+      "enabled": true,
+      "include_keywords": [
+        "ファイナルファンタジーXIV",
+        "ファイナルファンタジー14",
+        "FF14",
+        "FFXIV"
+      ],
+      "exclude_keywords": [],
+      "webhook_env": "DISCORD_WEBHOOK_URL_FF14"
+    },
+    {
+      "name": "FF14 / Game*Spark",
+      "username": "ファイナルファンタジーXIV ニュース",
+      "url": "https://www.gamespark.jp/rss20/index.rdf",
+      "site_url": "https://www.gamespark.jp/",
+      "state_key": "ff14:https://www.gamespark.jp/rss20/index.rdf",
+      "color": 13149276,
+      "enabled": true,
+      "include_keywords": [
+        "ファイナルファンタジーXIV",
+        "ファイナルファンタジー14",
+        "FF14",
+        "FFXIV"
+      ],
+      "exclude_keywords": [],
+      "webhook_env": "DISCORD_WEBHOOK_URL_FF14"
+    },
+    {
+      "name": "FF14 / AUTOMATON",
+      "username": "ファイナルファンタジーXIV ニュース",
+      "url": "https://automaton-media.com/feed/",
+      "site_url": "https://automaton-media.com/",
+      "state_key": "ff14:https://automaton-media.com/feed/",
+      "color": 13149276,
+      "enabled": true,
+      "include_keywords": [
+        "ファイナルファンタジーXIV",
+        "ファイナルファンタジー14",
+        "FF14",
+        "FFXIV"
+      ],
+      "exclude_keywords": [],
+      "webhook_env": "DISCORD_WEBHOOK_URL_FF14"
+    },
+    {
+      "name": "FF14 / 電ファミニコゲーマー",
+      "username": "ファイナルファンタジーXIV ニュース",
+      "url": "https://news.denfaminicogamer.jp/feed",
+      "site_url": "https://news.denfaminicogamer.jp/",
+      "state_key": "ff14:https://news.denfaminicogamer.jp/feed",
+      "color": 13149276,
+      "enabled": true,
+      "include_keywords": [
+        "ファイナルファンタジーXIV",
+        "ファイナルファンタジー14",
+        "FF14",
+        "FFXIV"
+      ],
+      "exclude_keywords": [],
+      "webhook_env": "DISCORD_WEBHOOK_URL_FF14"
+    },
+    {
+      "name": "FF14公式 YouTube",
+      "username": "ファイナルファンタジーXIV ニュース",
+      "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCpx2BZg8ABgaDV50sGJtWAg",
+      "site_url": "https://www.youtube.com/@ffxiv",
+      "color": 16711680,
+      "enabled": true,
+      "include_keywords": [],
+      "exclude_keywords": [],
+      "webhook_env": "DISCORD_WEBHOOK_URL_FF14"
+    },
+    {
+      "name": "FF14 / Google ニュース",
+      "username": "ファイナルファンタジーXIV ニュース",
+      "url": "https://news.google.com/rss/search?q=%22%E3%83%95%E3%82%A1%E3%82%A4%E3%83%8A%E3%83%AB%E3%83%95%E3%82%A1%E3%83%B3%E3%82%BF%E3%82%B8%E3%83%BCXIV%22%20OR%20%22FF14%22&hl=ja&gl=JP&ceid=JP:ja",
+      "site_url": "https://news.google.com/",
+      "color": 4359924,
+      "enabled": true,
+      "include_keywords": [],
+      "exclude_keywords": [
+        "4Gamer.net",
+        "GAME Watch",
+        "インサイド",
+        "Game*Spark",
+        "AUTOMATON",
+        "電ファミニコゲーマー",
+        "Yahoo!ニュース",
+        "GameWith",
+        "Game8",
+        "神ゲー攻略",
+        "AppMedia",
+        "Altema",
+        "アルテマ",
+        "の評価とおすすめ",
+        "の攻略と報酬"
+      ],
+      "fetch_og_image": false,
+      "webhook_env": "DISCORD_WEBHOOK_URL_FF14"
     }
   ]
 }

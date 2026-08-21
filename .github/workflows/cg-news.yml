@@ -38,6 +38,7 @@ jobs:
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           DISCORD_WEBHOOK_URL_ZZZ: ${{ secrets.DISCORD_WEBHOOK_URL_ZZZ }}
+          DISCORD_WEBHOOK_URL_FF14: ${{ secrets.DISCORD_WEBHOOK_URL_FF14 }}
         run: python bot.py --once
 
       - name: 既読状態 (state.json) を保存
