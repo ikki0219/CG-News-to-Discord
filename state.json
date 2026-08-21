@@ -1,0 +1,76 @@
+{
+  "feeds": {
+    "https://cgworld.jp/atom.xml": {
+      "seen": [
+        "tag:cgworld.jp,2026:/flashnews//35.21385",
+        "tag:cgworld.jp,2026:/article//37.21384",
+        "tag:cgworld.jp,2026:/flashnews//35.21345",
+        "tag:cgworld.jp,2026:/special-feature//36.21346",
+        "tag:cgworld.jp,2026:/article//37.21379",
+        "tag:cgworld.jp,2026:/flashnews//35.21383",
+        "tag:cgworld.jp,2026:/flashnews//35.21381",
+        "tag:cgworld.jp,2026:/flashnews//35.21378",
+        "tag:cgworld.jp,2026:/flashnews//35.21375",
+        "tag:cgworld.jp,2026:/flashnews//35.21376",
+        "tag:cgworld.jp,2026:/regular//2.21282",
+        "tag:cgworld.jp,2026:/flashnews//35.21374",
+        "tag:cgworld.jp,2026:/regular//2.21281",
+        "tag:cgworld.jp,2026:/flashnews//35.21373",
+        "tag:cgworld.jp,2026:/special-feature//36.21342"
+      ],
+      "etag": "W/\"3245-6598ddd9f488f\"",
+      "modified": "Fri, 21 Aug 2026 12:35:03 GMT",
+      "last_checked": "2026-08-21T20:18:09.598049+00:00",
+      "initialized": true
+    },
+    "https://3dnchu.com/feed/": {
+      "seen": [
+        "https://3dnchu.com/?p=1067436",
+        "https://3dnchu.com/?p=1067427",
+        "https://3dnchu.com/?p=1067421",
+        "https://3dnchu.com/?p=1067415",
+        "https://3dnchu.com/?p=1067412",
+        "https://3dnchu.com/?p=1067402",
+        "https://3dnchu.com/?p=1067394",
+        "https://3dnchu.com/?p=1067127"
+      ],
+      "modified": "Fri, 21 Aug 2026 18:40:08 GMT",
+      "last_checked": "2026-08-21T20:18:10.306587+00:00",
+      "initialized": true
+    },
+    "https://www.cgchannel.com/feed/": {
+      "seen": [
+        "https://www.cgchannel.com/?p=178204",
+        "https://www.cgchannel.com/?p=177029",
+        "https://www.cgchannel.com/?p=178163",
+        "https://www.cgchannel.com/?p=178173",
+        "https://www.cgchannel.com/?p=178153",
+        "https://www.cgchannel.com/?p=178137",
+        "https://www.cgchannel.com/?p=178121",
+        "https://www.cgchannel.com/?p=178125",
+        "https://www.cgchannel.com/?p=178111",
+        "https://www.cgchannel.com/?p=178082"
+      ],
+      "modified": "Fri, 21 Aug 2026 10:04:34 GMT",
+      "last_checked": "2026-08-21T20:18:11.906933+00:00",
+      "initialized": true
+    },
+    "https://80.lv/feed/": {
+      "seen": [
+        "https://80.lv/articles/building-a-hero-garment-from-real-world-data/",
+        "https://80.lv/articles/playstation-reportedly-reboots-horizon-hunters-gathering/",
+        "https://80.lv/articles/puzzles-lore-inspiration-get-glimpse-of-rusty-lake-development/",
+        "https://80.lv/articles/see-what-black-myth-zhong-kui-brings-in-15-minute-gameplay-trailer/",
+        "https://80.lv/articles/what-to-play-top-10-cozy-games-with-a-unique-twist/",
+        "https://80.lv/articles/giving-call-of-duty-black-ops-6-s-guns-some-new-fun-sounds/",
+        "https://80.lv/articles/watch-ex-blizzard-dev-jeff-kaplan-trying-not-to-get-himself-canceled-for-19-minutes-talking-about-his-cowboy-game/",
+        "https://80.lv/articles/this-animation-looks-3d-but-it-s-not/",
+        "https://80.lv/articles/free-blender-tool-for-procedural-spider-walks/",
+        "https://80.lv/articles/unity-s-stylized-water-3-is-getting-spline-based-river-modeler-tool/"
+      ],
+      "etag": "W/\"27da-0W8f0vf7V3s76dE23mzky6ZabBA\"",
+      "last_checked": "2026-08-21T20:18:12.468513+00:00",
+      "initialized": true
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "username": "CG News",
+  "interval_seconds": 600,
+  "post_on_first_run": false,
+  "max_posts_per_feed": 5,
+  "post_delay_seconds": 1.5,
+  "http_timeout": 20,
+  "message_style": "embed",
+  "include_url_in_content": true,
+  "show_thumbnail": true,
+  "large_image": false,
+  "summary_length": 300,
+
+  "feeds": [
+    {
+      "name": "CGWORLD.jp",
+      "url": "https://cgworld.jp/atom.xml",
+      "site_url": "https://cgworld.jp/",
+      "color": 15964160,
+      "enabled": true,
+      "include_keywords": [],
+      "exclude_keywords": []
+    },
+    {
+      "name": "3DCG NEWS (3dnchu)",
+      "url": "https://3dnchu.com/feed/",
+      "site_url": "https://3dnchu.com/",
+      "color": 3054554,
+      "enabled": true,
+      "include_keywords": [],
+      "exclude_keywords": []
+    },
+    {
+      "name": "CGchannel",
+      "url": "https://www.cgchannel.com/feed/",
+      "site_url": "https://www.cgchannel.com/",
+      "color": 14699055,
+      "enabled": true,
+      "include_keywords": [],
+      "exclude_keywords": []
+    },
+    {
+      "name": "80.lv",
+      "url": "https://80.lv/feed/",
+      "site_url": "https://80.lv/",
+      "color": 5793266,
+      "enabled": true,
+      "include_keywords": [],
+      "exclude_keywords": []
+    }
+  ]
+}

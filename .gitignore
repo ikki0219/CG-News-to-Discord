@@ -1,0 +1,9 @@
+# Webhook URL が入っているので絶対にコミットしない
+.env
+
+.venv/
+__pycache__/
+state.json.tmp
+
+# state.json は無視しません。
+# GitHub Actions が既読状態を引き継ぐためにコミットする必要があります。
