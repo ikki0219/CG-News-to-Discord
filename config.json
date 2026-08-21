@@ -244,7 +244,10 @@
       "exclude_keywords": [],
       "fetch_og_image": false,
       "webhook_env": "DISCORD_WEBHOOK_URL_FF14",
-      "detect_event_period": true
+      "detect_event_period": true,
+      "event_period_follow_link": [
+        "/lodestone/special/"
+      ]
     },
     {
       "name": "FF14公式 / Lodestone お知らせ",

@@ -64,11 +64,18 @@ PERIOD_RE = re.compile(
     r"(\d{4})/(\d{1,2})/(\d{1,2})\s*(\d{1,2}):(\d{2})\s*[（(]\s*JST\s*[）)]"
     + DASH +
     r"(\d{4})/(\d{1,2})/(\d{1,2})\s*(\d{1,2}):(\d{2})\s*[（(]\s*JST\s*[）)]")
-# Lodestone 形式:「2026年8月19日（水）12:15 ～ 10月18日（日）23:59」
+# Lodestone 形式:「2026年8月19日（水）12:15頃 ～ 10月18日（日）23:59頃」
 # 終了側は年が省略されることが多いので、年は任意にして開始側から補う。
-_JP_DATE = (r"(?:(\d{4})年)?\s*(\d{1,2})月(\d{1,2})日"
-            r"\s*(?:[（(][^）)]{1,4}[）)])?\s*(\d{1,2})[:：](\d{2})")
-JP_PERIOD_RE = re.compile(_JP_DATE + DASH + _JP_DATE)
+# 公式は時刻に「頃」を付けることが多いので、そこも読み飛ばす。
+_JP_YMD = r"(?:(\d{4})年)?\s*(\d{1,2})月(\d{1,2})日\s*(?:[（(][^）)]{1,4}[）)])?"
+_JP_HM = r"\s*(\d{1,2})[:：](\d{2})\s*(?:頃|ごろ)?"
+JP_PERIOD_RE = re.compile(_JP_YMD + _JP_HM + DASH + _JP_YMD + _JP_HM)
+# 時刻が書かれていない「2026年8月6日（木）～ 9月6日（日）」向けの控え。
+JP_DATE_ONLY_RE = re.compile(_JP_YMD + DASH + _JP_YMD)
+# トピックス本文から特設ページへのリンク。期間はそちらにしか書かれていないことが多い。
+EVENT_LINK_RE = re.compile(
+    r"""href=["'](https?://(?:sqex\.to/|[^"']*?/lodestone/special/)[^"']+)""", re.IGNORECASE)
+PERIOD_CACHE: dict = {}
 
 
 # --------------------------------------------------------------------------- #
@@ -269,16 +276,27 @@ def parse_event_period(text: str):
         return _to_period(v[:5], v[5:])
 
     match = JP_PERIOD_RE.search(text)
-    if not match:
-        return None
-    g = match.groups()
-    start_parts = [int(x) if x else None for x in g[:5]]
-    end_parts = [int(x) if x else None for x in g[5:]]
+    if match:
+        g = match.groups()
+        return _from_jp(g[:5], g[5:])
+
+    match = JP_DATE_ONLY_RE.search(text)
+    if match:  # 時刻が無いときは 00:00 〜 23:59 とみなす
+        g = match.groups()
+        return _from_jp(list(g[:3]) + [0, 0], list(g[3:]) + [23, 59])
+    return None
+
+
+def _from_jp(start_g, end_g):
+    """和暦表記の一致結果を (開始, 終了) にする。終了側の年は開始側から補う。"""
+    start_parts = [int(x) if x is not None else None for x in start_g]
+    end_parts = [int(x) if x is not None else None for x in end_g]
     if start_parts[0] is None:  # 開始側に年が無ければ判断できない
         return None
-    if end_parts[0] is None:    # 終了側の年は開始側から補う（年跨ぎは下で +1 年）
+    rollover = end_parts[0] is None
+    if rollover:                # 終了側の年は開始側から補う（12月→1月は +1 年）
         end_parts[0] = start_parts[0]
-    return _to_period(start_parts, end_parts, allow_year_rollover=g[5] is None)
+    return _to_period(start_parts, end_parts, allow_year_rollover=rollover)
 
 
 def _to_period(start_parts, end_parts, allow_year_rollover: bool = False):
@@ -488,24 +506,71 @@ def post_to_discord(webhook_url: str, payload: dict, timeout: int = 20) -> bool:
 # --------------------------------------------------------------------------- #
 # メイン処理
 # --------------------------------------------------------------------------- #
-def annotate_event_periods(feed_cfg: dict, entries) -> None:
-    """RSS 記事の本文から開催期間を拾って entry に持たせる。
+def fetch_page_period(url: str, timeout: int, allow=None):
+    """リンク先を読んで開催期間を探す。取れなければ None。
+
+    allow を渡すと、リダイレクト後の URL がそのいずれかを含むときだけ採用する。
+    公式の短縮 URL（sqex.to）は特設ページとは限らず別の記事に飛ぶことがあり、
+    そのままだと無関係な記事の期間を拾ってしまうため。
+    """
+    if url in PERIOD_CACHE:
+        return PERIOD_CACHE[url]
+    period = None
+    try:
+        res = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=timeout)
+        res.raise_for_status()
+        if allow and not any(hint in res.url for hint in allow):
+            log(f"    リンク先が対象外なので使いません: {res.url[:80]}")
+        else:
+            period = parse_event_period(html.unescape(TAG_RE.sub(" ", res.text)))
+    except Exception as exc:
+        log(f"  （開催期間の取得をスキップしました: {exc}）")
+    PERIOD_CACHE[url] = period
+    return period
+
+
+def annotate_event_periods(feed_cfg: dict, entries, state: dict, timeout: int) -> None:
+    """RSS 記事から開催期間を拾って entry に持たせる。
 
     メンテナンスや障害情報の日時まで拾ってしまうので、既定では何もしない。
     イベント告知が流れるフィードだけ detect_event_period で有効にする。
     （HoYoLAB のフィードは fetch_hoyolab 側で設定済み。）
+
+    シーズナルイベントは本文に「8月12日（水）より開催！」としか書かれず、期間は
+    特設ページ側にしかない。そこで event_period_follow_link を指定すると、本文中の
+    リンクを 1 段だけ辿って探す。値には採用してよいリンク先の URL 断片を並べる
+    （true なら無条件）。同じ記事を毎回取りに行かないよう、調べた記事は state に控える。
     """
     if not feed_cfg.get("detect_event_period"):
         return
+    follow = feed_cfg.get("event_period_follow_link", False)
+    allow = follow if isinstance(follow, list) else None
+    checked = state.setdefault("event_links_checked", {})
+
     for entry in entries:
         if entry.get("event_period"):
             continue
-        body = f"{entry.get('title', '')} {entry.get('summary', '')}"
+        markup = f"{entry.get('title', '')} {entry.get('summary', '')}"
         for content in entry.get("content") or []:
-            body += " " + (content.get("value") or "")
-        period = parse_event_period(html.unescape(TAG_RE.sub(" ", body)))
+            markup += " " + (content.get("value") or "")
+        period = parse_event_period(html.unescape(TAG_RE.sub(" ", markup)))
+
+        uid = entry_uid(entry)
+        if not period and follow and uid not in checked:
+            link = EVENT_LINK_RE.search(html.unescape(markup))
+            if link:
+                period = fetch_page_period(link.group(1), timeout, allow)
+                if period:
+                    log(f"    特設ページから開催期間を取得: "
+                        f"{clean_text(entry.get('title', ''), 40)}")
+            checked[uid] = int(time.time())
+
         if period:
             entry["event_period"] = period
+
+    if len(checked) > SEEN_LIMIT * 2:  # 古いものから落として肥大化を防ぐ
+        for uid in sorted(checked, key=checked.get)[:len(checked) - SEEN_LIMIT]:
+            checked.pop(uid, None)
 
 
 def register_events(feed_cfg: dict, entries, state: dict) -> list:
@@ -712,7 +777,8 @@ def process_feed(feed_cfg: dict, config: dict, state: dict, webhook_url: str,
         log(f"  {name}: 更新なし (304)")
         return 0
 
-    annotate_event_periods(feed_cfg, parsed.entries)
+    annotate_event_periods(feed_cfg, parsed.entries, state,
+                           config.get("http_timeout", 20))
     added = register_events(feed_cfg, parsed.entries, state)
     if new_events is not None:
         new_events.extend(added)
