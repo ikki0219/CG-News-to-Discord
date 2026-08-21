@@ -28,6 +28,11 @@ try:
 except ImportError as exc:  # 依存が入っていないときは親切に落とす
     sys.exit(f"依存パッケージが不足しています ({exc.name})。setup.bat を実行してください。")
 
+# Windows の日本語コンソール（cp932）では扱えない文字が記事タイトルに入ることがある。
+# そこで落とさず「?」に置き換えて出力を続ける。
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(errors="replace")
+
 BASE_DIR = Path(__file__).resolve().parent
 CONFIG_PATH = BASE_DIR / "config.json"
 STATE_PATH = BASE_DIR / "state.json"
@@ -279,10 +284,13 @@ def build_payload(entry, feed_cfg: dict, config: dict) -> dict:
     source = feed_cfg.get("name", "feed")
     payload: dict = {}
 
-    if config.get("username"):
-        payload["username"] = config["username"]
-    if config.get("avatar_url"):
-        payload["avatar_url"] = config["avatar_url"]
+    # 表示名・アイコンはフィード単位の指定を優先する（無ければ config の共通値）
+    username = feed_cfg.get("username") or config.get("username")
+    avatar_url = feed_cfg.get("avatar_url") or config.get("avatar_url")
+    if username:
+        payload["username"] = username
+    if avatar_url:
+        payload["avatar_url"] = avatar_url
 
     if config.get("message_style", "embed") == "plain":
         # URL をそのまま貼る形式。Discord 側が自動でプレビューを展開する。
@@ -304,7 +312,8 @@ def build_payload(entry, feed_cfg: dict, config: dict) -> dict:
         embed["timestamp"] = published
     if config.get("show_thumbnail", True):
         thumb = entry_thumbnail(entry)
-        if not thumb and link and config.get("fetch_og_image", True):
+        fetch_image = feed_cfg.get("fetch_og_image", config.get("fetch_og_image", True))
+        if not thumb and link and fetch_image:
             # フィードが画像を持たない場合は記事ページから探す
             thumb = fetch_page_image(link, config.get("http_timeout", 20))
         if thumb:
@@ -432,6 +441,23 @@ def process_feed(feed_cfg: dict, config: dict, state: dict, webhook_url: str,
     return posted
 
 
+def resolve_webhook(feed_cfg: dict, default_url: str):
+    """このフィードの投稿先 Webhook を決める。
+
+    webhook_env（環境変数名）> webhook_url（直書き）> 既定の DISCORD_WEBHOOK_URL の順。
+    別チャンネルに分けたい場合は、URL を config.json に書かずに
+    webhook_env で環境変数名だけを指定する（GitHub Actions では Secrets から渡す）。
+    """
+    env_name = feed_cfg.get("webhook_env")
+    if env_name:
+        url = os.environ.get(env_name, "").strip()
+        if url:
+            return url
+        log(f"  {feed_cfg.get('name', '?')}: 環境変数 {env_name} が空のため、このフィードは飛ばします。")
+        return None
+    return feed_cfg.get("webhook_url") or default_url
+
+
 def run_once(config: dict, state: dict, webhook_url: str, mark_only: bool = False) -> int:
     feeds = [f for f in config.get("feeds", []) if f.get("enabled", True)]
     if not feeds:
@@ -440,9 +466,11 @@ def run_once(config: dict, state: dict, webhook_url: str, mark_only: bool = Fals
     log(f"チェック開始（{len(feeds)} フィード）")
     total = 0
     for feed_cfg in feeds:
+        target = resolve_webhook(feed_cfg, webhook_url)
+        if not target and not DRY_RUN:
+            continue
         total += process_feed(
-            feed_cfg, config, state,
-            feed_cfg.get("webhook_url") or webhook_url,
+            feed_cfg, config, state, target or "dry-run",
             mark_only=mark_only,
         )
     if not NO_SAVE:
@@ -497,10 +525,24 @@ def main() -> int:
         return 0
 
     if args.test:
-        ok = post_to_discord(webhook_url, {
-            "username": config.get("username", "CG News"),
-            "content": "✅ テスト投稿です。Webhook は正常に動作しています。",
-        })
+        # 使っている投稿先ごとに 1 通ずつ送る（別チャンネルに分けている場合の確認用）
+        targets = {}
+        for feed_cfg in config.get("feeds", []):
+            if not feed_cfg.get("enabled", True):
+                continue
+            url = resolve_webhook(feed_cfg, webhook_url)
+            if url:
+                targets.setdefault(url, feed_cfg)
+        targets.setdefault(webhook_url, {})
+
+        ok = True
+        for url, feed_cfg in targets.items():
+            sent = post_to_discord(url, {
+                "username": feed_cfg.get("username") or config.get("username", "CG News"),
+                "content": "✅ テスト投稿です。Webhook は正常に動作しています。",
+            })
+            log(f"  {'成功' if sent else '失敗'}: ...{url[-12:]}")
+            ok = ok and sent
         log("テスト投稿に成功しました。" if ok else "テスト投稿に失敗しました。")
         return 0 if ok else 1
 

@@ -37,6 +37,7 @@ jobs:
       - name: 新着をチェックして Discord に投稿
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          DISCORD_WEBHOOK_URL_ZZZ: ${{ secrets.DISCORD_WEBHOOK_URL_ZZZ }}
         run: python bot.py --once
 
       - name: 既読状態 (state.json) を保存

@@ -1,9 +1,11 @@
 # CG News Discord Bot
 
-CG 系ニュースサイトの新着記事を検出して、Discord のチャンネルに URL 付きで自動投稿する Bot です。
+ニュースサイトの新着記事を検出して、Discord のチャンネルに URL 付きで自動投稿する Bot です。
 Discord Webhook を使うので、Bot アプリの申請やトークン発行は不要です。
 
 ## 監視対象（初期設定）
+
+### CG 系ニュース
 
 | サイト | フィード |
 | --- | --- |
@@ -12,7 +14,25 @@ Discord Webhook を使うので、Bot アプリの申請やトークン発行は
 | CGchannel | `https://www.cgchannel.com/feed/` |
 | 80.lv | `https://80.lv/feed/` |
 
-すべて `config.json` の `feeds` で追加・削除・無効化できます。
+### ゼンレスゾーンゼロ（ZZZ）
+
+ゲームメディアの総合フィードを取得し、`include_keywords`（`ゼンレスゾーンゼロ` / `ゼンゼロ` /
+`Zenless`）で ZZZ の記事だけを抜き出しています。
+
+| ソース | 種類 |
+| --- | --- |
+| 4Gamer.net / GAME Watch / インサイド / Game*Spark / AUTOMATON / 電ファミニコゲーマー | 各サイトの RSS をキーワード絞り込み |
+| ゼンレスゾーンゼロ-ZZZ-公式（YouTube） | チャンネルの新着動画（PV・番組など） |
+| Google ニュース検索「ゼンレスゾーンゼロ」 | 上記以外の媒体（ファミ通・PR TIMES・Gamer など）の取りこぼし拾い |
+
+Google ニュースのフィードは、個別に購読している 6 サイトと攻略 wiki（GameWith・Game8 など）の
+量産記事を `exclude_keywords` で除外してあるので、同じ記事が二重に流れません。
+攻略記事も見たい場合は、その `exclude_keywords` から該当のサイト名を消してください。
+なお Google ニュースのリンクは `news.google.com` のリダイレクト URL のため、
+この 1 フィードだけサムネイルは付きません（`fetch_og_image: false`）。
+
+すべて `config.json` の `feeds` で追加・削除・無効化できます。ZZZ だけ欲しい場合は
+CG 系 4 サイトの `enabled` を `false` にしてください。
 
 ## セットアップ
 
@@ -76,6 +96,11 @@ git push -u origin main
 - Name: `DISCORD_WEBHOOK_URL`
 - Secret: Webhook URL
 
+ZZZ 用のチャンネルを分けている場合は、同じ手順でもう 1 つ登録します。
+
+- Name: `DISCORD_WEBHOOK_URL_ZZZ`
+- Secret: ZZZ チャンネルの Webhook URL
+
 ### 3. 動作確認
 
 **Actions タブ → CG News to Discord → Run workflow** で手動実行できます。
@@ -126,13 +151,34 @@ schtasks /create /tn "CG News Discord Bot" /tr "K:\discord\check-once.bat" /sc m
   "enabled": true,
   "include_keywords": ["Blender", "Houdini"],
   "exclude_keywords": ["PR", "セール"],
-  "webhook_url": "https://discord.com/api/webhooks/..."
+  "username": "別の表示名",
+  "fetch_og_image": false,
+  "webhook_env": "DISCORD_WEBHOOK_URL_ZZZ"
 }
 ```
 
 - `include_keywords`: いずれかがタイトル・本文に含まれる記事だけ投稿（空なら全件）
 - `exclude_keywords`: 含まれる記事は投稿しない
-- `webhook_url`: このフィードだけ別チャンネルに流したいときに指定（省略時は `.env` の値）
+- `username` / `avatar_url`: このフィードだけ表示名・アイコンを変える（省略時は全体設定の値）
+- `fetch_og_image`: 記事ページから画像を探す処理をフィード単位で切る（省略時は全体設定の値）
+- `webhook_env`: このフィードだけ別チャンネルに流すときの Webhook URL の**環境変数名**。
+  URL 自体は `.env`（ローカル）と GitHub の Secrets（Actions）に置くので、リポジトリに漏れません。
+  指定した環境変数が空の場合、そのフィードは投稿されずスキップされます
+- `webhook_url`: Webhook URL の直書き。手元だけで動かす場合向け（**公開リポジトリでは使わないこと**）
+
+## チャンネルを分ける
+
+初期設定では ZZZ 系の 8 フィードが `"webhook_env": "DISCORD_WEBHOOK_URL_ZZZ"` を指しており、
+CG 系とは別のチャンネルに投稿されます。
+
+1. Discord で ZZZ 用のチャンネルを作り、**チャンネルの編集 → 連携サービス → ウェブフック → 新しいウェブフック**
+   で URL をコピー
+2. `.env` に `DISCORD_WEBHOOK_URL_ZZZ=<コピーした URL>` を追記
+3. GitHub の Secrets にも同じ名前で登録（上記「Webhook URL を Secrets に登録する」を参照）
+4. `python bot.py --test` で確認。使っている投稿先すべてに 1 通ずつテスト投稿が飛びます
+
+全部同じチャンネルでよければ、`config.json` の各フィードから `webhook_env` の行を消せば
+`DISCORD_WEBHOOK_URL` に統一されます。
 - `color`: 埋め込み左端の色。10 進数で指定（`#F39800` → `15964160`）
 
 ## 仕組み

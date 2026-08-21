@@ -11,7 +11,6 @@
   "fetch_og_image": true,
   "large_image": false,
   "summary_length": 300,
-
   "feeds": [
     {
       "name": "CGWORLD.jp",
@@ -48,6 +47,134 @@
       "enabled": true,
       "include_keywords": [],
       "exclude_keywords": []
+    },
+    {
+      "name": "ゼンゼロ / 4Gamer.net",
+      "username": "ゼンレスゾーンゼロ ニュース",
+      "url": "https://www.4gamer.net/rss/index.xml",
+      "site_url": "https://www.4gamer.net/",
+      "color": 16763904,
+      "enabled": true,
+      "include_keywords": [
+        "ゼンレスゾーンゼロ",
+        "ゼンゼロ",
+        "Zenless"
+      ],
+      "exclude_keywords": [],
+      "webhook_env": "DISCORD_WEBHOOK_URL_ZZZ"
+    },
+    {
+      "name": "ゼンゼロ / GAME Watch",
+      "username": "ゼンレスゾーンゼロ ニュース",
+      "url": "https://game.watch.impress.co.jp/data/rss/1.0/gmw/feed.rdf",
+      "site_url": "https://game.watch.impress.co.jp/",
+      "color": 16763904,
+      "enabled": true,
+      "include_keywords": [
+        "ゼンレスゾーンゼロ",
+        "ゼンゼロ",
+        "Zenless"
+      ],
+      "exclude_keywords": [],
+      "webhook_env": "DISCORD_WEBHOOK_URL_ZZZ"
+    },
+    {
+      "name": "ゼンゼロ / インサイド",
+      "username": "ゼンレスゾーンゼロ ニュース",
+      "url": "https://www.inside-games.jp/rss20/index.rdf",
+      "site_url": "https://www.inside-games.jp/",
+      "color": 16763904,
+      "enabled": true,
+      "include_keywords": [
+        "ゼンレスゾーンゼロ",
+        "ゼンゼロ",
+        "Zenless"
+      ],
+      "exclude_keywords": [],
+      "webhook_env": "DISCORD_WEBHOOK_URL_ZZZ"
+    },
+    {
+      "name": "ゼンゼロ / Game*Spark",
+      "username": "ゼンレスゾーンゼロ ニュース",
+      "url": "https://www.gamespark.jp/rss20/index.rdf",
+      "site_url": "https://www.gamespark.jp/",
+      "color": 16763904,
+      "enabled": true,
+      "include_keywords": [
+        "ゼンレスゾーンゼロ",
+        "ゼンゼロ",
+        "Zenless"
+      ],
+      "exclude_keywords": [],
+      "webhook_env": "DISCORD_WEBHOOK_URL_ZZZ"
+    },
+    {
+      "name": "ゼンゼロ / AUTOMATON",
+      "username": "ゼンレスゾーンゼロ ニュース",
+      "url": "https://automaton-media.com/feed/",
+      "site_url": "https://automaton-media.com/",
+      "color": 16763904,
+      "enabled": true,
+      "include_keywords": [
+        "ゼンレスゾーンゼロ",
+        "ゼンゼロ",
+        "Zenless"
+      ],
+      "exclude_keywords": [],
+      "webhook_env": "DISCORD_WEBHOOK_URL_ZZZ"
+    },
+    {
+      "name": "ゼンゼロ / 電ファミニコゲーマー",
+      "username": "ゼンレスゾーンゼロ ニュース",
+      "url": "https://news.denfaminicogamer.jp/feed",
+      "site_url": "https://news.denfaminicogamer.jp/",
+      "color": 16763904,
+      "enabled": true,
+      "include_keywords": [
+        "ゼンレスゾーンゼロ",
+        "ゼンゼロ",
+        "Zenless"
+      ],
+      "exclude_keywords": [],
+      "webhook_env": "DISCORD_WEBHOOK_URL_ZZZ"
+    },
+    {
+      "name": "ゼンゼロ公式 YouTube",
+      "username": "ゼンレスゾーンゼロ ニュース",
+      "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCt09C9DPSuOGpHoitbcyCIQ",
+      "site_url": "https://www.youtube.com/@ZZZ_JP",
+      "color": 16711680,
+      "enabled": true,
+      "include_keywords": [],
+      "exclude_keywords": [],
+      "webhook_env": "DISCORD_WEBHOOK_URL_ZZZ"
+    },
+    {
+      "name": "ゼンゼロ / Google ニュース",
+      "username": "ゼンレスゾーンゼロ ニュース",
+      "url": "https://news.google.com/rss/search?q=%E3%82%BC%E3%83%B3%E3%83%AC%E3%82%B9%E3%82%BE%E3%83%BC%E3%83%B3%E3%82%BC%E3%83%AD&hl=ja&gl=JP&ceid=JP:ja",
+      "site_url": "https://news.google.com/",
+      "color": 4359924,
+      "enabled": true,
+      "include_keywords": [],
+      "exclude_keywords": [
+        "4Gamer.net",
+        "GAME Watch",
+        "インサイド",
+        "Game*Spark",
+        "AUTOMATON",
+        "電ファミニコゲーマー",
+        "GameWith",
+        "Game8",
+        "神ゲー攻略",
+        "AppMedia",
+        "Altema",
+        "アルテマ",
+        "の評価とおすすめパーティ",
+        "の攻略と報酬"
+      ],
+      "fetch_og_image": false,
+      "webhook_env": "DISCORD_WEBHOOK_URL_ZZZ"
     }
   ]
 }
