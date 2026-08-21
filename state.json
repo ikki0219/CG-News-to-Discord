@@ -20,7 +20,7 @@
       ],
       "etag": "W/\"3245-6598ddd9f488f\"",
       "modified": "Fri, 21 Aug 2026 12:35:03 GMT",
-      "last_checked": "2026-08-21T21:29:41.245823+00:00",
+      "last_checked": "2026-08-21T21:54:53.647368+00:00",
       "initialized": true
     },
     "https://3dnchu.com/feed/": {
@@ -35,7 +35,7 @@
         "https://3dnchu.com/?p=1067127"
       ],
       "modified": "Fri, 21 Aug 2026 18:40:08 GMT",
-      "last_checked": "2026-08-21T21:29:42.391352+00:00",
+      "last_checked": "2026-08-21T21:54:54.881229+00:00",
       "initialized": true
     },
     "https://www.cgchannel.com/feed/": {
@@ -52,7 +52,7 @@
         "https://www.cgchannel.com/?p=178082"
       ],
       "modified": "Fri, 21 Aug 2026 10:04:34 GMT",
-      "last_checked": "2026-08-21T21:29:42.939733+00:00",
+      "last_checked": "2026-08-21T21:54:55.496291+00:00",
       "initialized": true
     },
     "https://80.lv/feed/": {
@@ -70,7 +70,7 @@
         "https://80.lv/articles/this-super-mario-bros-godot-recreation-will-bring-you-old-memories/"
       ],
       "etag": "W/\"2770-CrpWeoP5h1qbQdmeM/CJQhSrlG8\"",
-      "last_checked": "2026-08-21T21:29:43.435921+00:00",
+      "last_checked": "2026-08-21T21:54:55.922955+00:00",
       "initialized": true
     },
     "https://www.4gamer.net/rss/index.xml": {
@@ -178,7 +178,7 @@
       ],
       "etag": "\"13c30-65990c8f9ca71-gzip\"",
       "modified": "Fri, 21 Aug 2026 16:04:02 GMT",
-      "last_checked": "2026-08-21T21:29:46.715605+00:00",
+      "last_checked": "2026-08-21T21:54:57.075112+00:00",
       "initialized": true
     },
     "https://game.watch.impress.co.jp/data/rss/1.0/gmw/feed.rdf": {
@@ -213,9 +213,9 @@
         "https://game.watch.impress.co.jp/docs/news/2134468.html?ref=rss",
         "https://game.watch.impress.co.jp/docs/news/2134458.html?ref=rss"
       ],
-      "etag": "\"6a88c152-5b78\"",
-      "modified": "Fri, 21 Aug 2026 21:21:22 GMT",
-      "last_checked": "2026-08-21T21:29:47.604728+00:00",
+      "etag": "\"6a88c85c-5b78\"",
+      "modified": "Fri, 21 Aug 2026 21:51:24 GMT",
+      "last_checked": "2026-08-21T21:54:57.934970+00:00",
       "initialized": true
     },
     "https://www.inside-games.jp/rss20/index.rdf": {
@@ -269,9 +269,10 @@
         "https://www.inside-games.jp/article/2026/08/21/186535.html",
         "https://www.inside-games.jp/article/2026/08/21/186534.html",
         "https://www.inside-games.jp/article/2026/08/21/186533.html",
-        "https://www.inside-games.jp/article/2026/08/21/186532.html"
+        "https://www.inside-games.jp/article/2026/08/21/186532.html",
+        "https://www.inside-games.jp/article/2026/08/22/186582.html"
       ],
-      "last_checked": "2026-08-21T21:29:48.938837+00:00",
+      "last_checked": "2026-08-21T21:54:59.086387+00:00",
       "initialized": true
     },
     "https://www.gamespark.jp/rss20/index.rdf": {
@@ -325,9 +326,10 @@
         "http://www.gamespark.jp/article/2026/08/21/171026.html",
         "http://www.gamespark.jp/article/2026/08/21/171025.html",
         "http://www.gamespark.jp/article/2026/08/21/171024.html",
-        "http://www.gamespark.jp/article/2026/08/21/171023.html"
+        "http://www.gamespark.jp/article/2026/08/21/171023.html",
+        "http://www.gamespark.jp/article/2026/08/22/171073.html"
       ],
-      "last_checked": "2026-08-21T21:29:49.190484+00:00",
+      "last_checked": "2026-08-21T21:54:59.730785+00:00",
       "initialized": true
     },
     "https://automaton-media.com/feed/": {
@@ -395,7 +397,7 @@
       ],
       "etag": "W/\"38005bd2a48890c06bca39cc5106dd45\"",
       "modified": "Fri, 21 Aug 2026 14:41:56 GMT",
-      "last_checked": "2026-08-21T21:29:49.618957+00:00",
+      "last_checked": "2026-08-21T21:55:00.053496+00:00",
       "initialized": true
     },
     "https://news.denfaminicogamer.jp/feed": {
@@ -453,7 +455,7 @@
       ],
       "etag": "W/\"ab71c77618222ef1a37ff64a9c573958\"",
       "modified": "Fri, 21 Aug 2026 18:05:48 GMT",
-      "last_checked": "2026-08-21T21:29:51.858267+00:00",
+      "last_checked": "2026-08-21T21:55:02.618984+00:00",
       "initialized": true
     },
     "https://www.youtube.com/feeds/videos.xml?channel_id=UCt09C9DPSuOGpHoitbcyCIQ": {
@@ -474,7 +476,7 @@
         "yt:video:sHJ5WEyFPvQ",
         "yt:video:vSvYua3Ix_Y"
       ],
-      "last_checked": "2026-08-21T21:29:51.996495+00:00",
+      "last_checked": "2026-08-21T21:55:02.826128+00:00",
       "initialized": true
     },
     "https://news.google.com/rss/search?q=%E3%82%BC%E3%83%B3%E3%83%AC%E3%82%B9%E3%82%BE%E3%83%BC%E3%83%B3%E3%82%BC%E3%83%AD&hl=ja&gl=JP&ceid=JP:ja": {
@@ -580,8 +582,114 @@
         "CBMiSkFVX3lxTE9BX1BUSFB4YnlQT0ZaRzNaYmpDR0NtR0RfNENyRXZtcXhLeVk1S1NtVHhVemxyQ3hRUkpYZUtrNElzYUhlTTFsSl9R",
         "CBMiXEFVX3lxTE0yakZBajhIYjFmbC1BcE5Tci1uMlNOa2xVbnF6X0d0Sk1SVWJDa2ZOZDBkblNVYTR1b2ZYb0t5Wlk2d2dkSERJQ1RxeWZhYTU2Q0R2VDQ5TWNOQ0R4"
       ],
-      "last_checked": "2026-08-21T21:29:52.743197+00:00",
+      "last_checked": "2026-08-21T21:55:03.313272+00:00",
       "initialized": true
+    },
+    "https://bbs-api-os.hoyolab.com/community/post/wapi/getNewsList?gids=8&page_size=15&type=1": {
+      "seen": [
+        "hoyolab:46388581",
+        "hoyolab:46330215",
+        "hoyolab:46330058",
+        "hoyolab:46329896",
+        "hoyolab:46329735",
+        "hoyolab:46208552",
+        "hoyolab:46150564",
+        "hoyolab:46062784",
+        "hoyolab:46038768",
+        "hoyolab:46037423",
+        "hoyolab:46037106",
+        "hoyolab:46037053",
+        "hoyolab:46030622",
+        "hoyolab:46028001",
+        "hoyolab:46027894"
+      ],
+      "last_checked": "2026-08-21T21:55:04.425433+00:00",
+      "initialized": true
+    },
+    "https://bbs-api-os.hoyolab.com/community/post/wapi/getNewsList?gids=8&page_size=15&type=2": {
+      "seen": [
+        "hoyolab:46172453",
+        "hoyolab:46056246",
+        "hoyolab:46039426",
+        "hoyolab:46038839",
+        "hoyolab:46038142",
+        "hoyolab:45901070",
+        "hoyolab:45889420",
+        "hoyolab:45889282",
+        "hoyolab:45884637",
+        "hoyolab:45612985",
+        "hoyolab:45594249",
+        "hoyolab:45503520",
+        "hoyolab:45490823",
+        "hoyolab:45489552",
+        "hoyolab:45443736"
+      ],
+      "last_checked": "2026-08-21T21:55:05.274922+00:00",
+      "initialized": true
+    }
+  },
+  "events": {
+    "hoyolab:46388581": {
+      "title": "「指名手配と、悠々たる休暇」イベント詳細",
+      "url": "https://www.hoyolab.com/article/46388581",
+      "start": 1787536800.0,
+      "end": 1788724740.0,
+      "source": "ゼンゼロ公式 / HoYoLAB お知らせ",
+      "username": "ゼンレスゾーンゼロ ニュース",
+      "webhook_env": "DISCORD_WEBHOOK_URL_ZZZ",
+      "notified": []
+    },
+    "hoyolab:46330215": {
+      "title": "「カリッとサクサク大作戦！」イベント詳細",
+      "url": "https://www.hoyolab.com/article/46330215",
+      "start": 1787104800.0,
+      "end": 1788724740.0,
+      "source": "ゼンゼロ公式 / HoYoLAB お知らせ",
+      "username": "ゼンレスゾーンゼロ ニュース",
+      "webhook_env": "DISCORD_WEBHOOK_URL_ZZZ",
+      "notified": []
+    },
+    "hoyolab:46330058": {
+      "title": "「『ンナナ』がお届け！」イベント詳細",
+      "url": "https://www.hoyolab.com/article/46330058",
+      "start": 1787104800.0,
+      "end": 1788811140.0,
+      "source": "ゼンゼロ公式 / HoYoLAB お知らせ",
+      "username": "ゼンレスゾーンゼロ ニュース",
+      "webhook_env": "DISCORD_WEBHOOK_URL_ZZZ",
+      "notified": []
+    },
+    "hoyolab:46329896": {
+      "title": "Ver.3.1「ストア」新商品登場",
+      "url": "https://www.hoyolab.com/article/46329896",
+      "start": 1787112000.0,
+      "end": 1788904740.0,
+      "source": "ゼンゼロ公式 / HoYoLAB お知らせ",
+      "username": "ゼンレスゾーンゼロ ニュース",
+      "webhook_env": "DISCORD_WEBHOOK_URL_ZZZ",
+      "notified": []
+    },
+    "hoyolab:46329735": {
+      "title": "Ver.3.1期間限定チャンネル（後半）",
+      "url": "https://www.hoyolab.com/article/46329735",
+      "start": 1787112000.0,
+      "end": 1788850740.0,
+      "source": "ゼンゼロ公式 / HoYoLAB お知らせ",
+      "username": "ゼンレスゾーンゼロ ニュース",
+      "webhook_env": "DISCORD_WEBHOOK_URL_ZZZ",
+      "notified": []
+    },
+    "hoyolab:46150564": {
+      "title": "「パシャリ！フォーカスの陣！」イベント詳細",
+      "url": "https://www.hoyolab.com/article/46150564",
+      "start": 1786068000.0,
+      "end": 1787515140.0,
+      "source": "ゼンゼロ公式 / HoYoLAB お知らせ",
+      "username": "ゼンレスゾーンゼロ ニュース",
+      "webhook_env": "DISCORD_WEBHOOK_URL_ZZZ",
+      "notified": [
+        72
+      ]
     }
   }
 }
