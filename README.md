@@ -30,7 +30,7 @@ Discord Webhook を使うので、Bot アプリの申請やトークン発行は
 DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/xxxxx/yyyyy
 ```
 
-> `.env` と `state.json` は `.gitignore` に入れてあります。Webhook URL は知っている人なら誰でもそのチャンネルに投稿できるので、公開しないでください。
+> `.env` は `.gitignore` に入れてあります（`state.json` は GitHub Actions が既読状態を引き継ぐためコミットします）。Webhook URL は知っている人なら誰でもそのチャンネルに投稿できるので、公開しないでください。
 
 ### 3. 疎通確認
 
@@ -52,9 +52,44 @@ DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/xxxxx/yyyyy
 2 回目以降のチェックで見つかった新着記事だけが投稿されます。
 最初から手元のフィードを流し込みたい場合は `config.json` の `post_on_first_run` を `true` にしてください。
 
-## PC 起動中ずっと動かす（タスクスケジューラ）
+## PC を落としても動かす（GitHub Actions）
 
-常駐させたくない場合は、`check-once.bat` を定期実行するのが手軽です。
+[.github/workflows/cg-news.yml](.github/workflows/cg-news.yml) で 30 分おきに自動実行できます。
+GitHub のサーバー上で動くので、手元の PC の電源は関係ありません。
+
+### 1. GitHub にリポジトリを作って push する
+
+[github.com/new](https://github.com/new) で空のリポジトリを作成します（README や .gitignore は追加しない）。作成後に表示される URL を使って:
+
+```bash
+git remote add origin https://github.com/<ユーザー名>/<リポジトリ名>.git
+git push -u origin main
+```
+
+`.env` は `.gitignore` で除外済みなので、Webhook URL は push されません。
+
+### 2. Webhook URL を Secrets に登録する
+
+リポジトリの **Settings → Secrets and variables → Actions → New repository secret**
+
+- Name: `DISCORD_WEBHOOK_URL`
+- Secret: Webhook URL
+
+### 3. 動作確認
+
+**Actions タブ → CG News to Discord → Run workflow** で手動実行できます。
+以降は 30 分おきに自動で走ります。
+
+### 注意点
+
+- **リポジトリは Public を推奨**。Private だと Actions の無料枠（月 2,000 分）を使い、30 分間隔では月 1,400 分ほど消費して上限に近づきます。Private のままにするなら cron を `"0 * * * *"`（1 時間おき）にしてください
+- 実行時刻は GitHub の混雑状況により **数分〜十数分ずれます**。稀にスキップされることもあります
+- リポジトリに 60 日間 activity が無いと、GitHub が定期実行を自動停止します（メールが届くので Actions タブから再有効化）
+- **ローカル実行と併用しない**。既読管理 `state.json` が二重管理になり、同じ記事が 2 回投稿されます。GitHub Actions に移したら `run.bat` での常駐は止めてください
+
+## （別案）PC 起動中だけ動かす（タスクスケジューラ）
+
+GitHub を使わない場合は、`check-once.bat` を定期実行するのが手軽です。
 
 ```bash
 schtasks /create /tn "CG News Discord Bot" /tr "K:\discord\check-once.bat" /sc minute /mo 30 /f
