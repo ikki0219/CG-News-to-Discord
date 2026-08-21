@@ -175,6 +175,48 @@
       ],
       "fetch_og_image": false,
       "webhook_env": "DISCORD_WEBHOOK_URL_ZZZ"
+    },
+    {
+      "name": "ゼンゼロ公式 / HoYoLAB お知らせ",
+      "type": "hoyolab",
+      "username": "ゼンレスゾーンゼロ ニュース",
+      "url": "https://bbs-api-os.hoyolab.com/community/post/wapi/getNewsList?gids=8&page_size=15&type=1",
+      "site_url": "https://www.hoyolab.com/circles/8/39/official?page_type=39",
+      "language": "ja-jp",
+      "color": 16763904,
+      "enabled": true,
+      "fetch_og_image": false,
+      "include_keywords": [],
+      "exclude_keywords": [],
+      "webhook_env": "DISCORD_WEBHOOK_URL_ZZZ"
+    },
+    {
+      "name": "ゼンゼロ公式 / HoYoLAB イベント",
+      "type": "hoyolab",
+      "username": "ゼンレスゾーンゼロ ニュース",
+      "url": "https://bbs-api-os.hoyolab.com/community/post/wapi/getNewsList?gids=8&page_size=15&type=2",
+      "site_url": "https://www.hoyolab.com/circles/8/39/official?page_type=39",
+      "language": "ja-jp",
+      "color": 16763904,
+      "enabled": true,
+      "fetch_og_image": false,
+      "include_keywords": [],
+      "exclude_keywords": [],
+      "webhook_env": "DISCORD_WEBHOOK_URL_ZZZ"
+    },
+    {
+      "name": "ゼンゼロ公式 / HoYoLAB 最新情報",
+      "type": "hoyolab",
+      "username": "ゼンレスゾーンゼロ ニュース",
+      "url": "https://bbs-api-os.hoyolab.com/community/post/wapi/getNewsList?gids=8&page_size=15&type=3",
+      "site_url": "https://www.hoyolab.com/circles/8/39/official?page_type=39",
+      "language": "ja-jp",
+      "color": 16763904,
+      "enabled": false,
+      "fetch_og_image": false,
+      "include_keywords": [],
+      "exclude_keywords": [],
+      "webhook_env": "DISCORD_WEBHOOK_URL_ZZZ"
     }
   ]
 }

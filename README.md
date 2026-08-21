@@ -23,6 +23,7 @@ Discord Webhook を使うので、Bot アプリの申請やトークン発行は
 | --- | --- |
 | 4Gamer.net / GAME Watch / インサイド / Game*Spark / AUTOMATON / 電ファミニコゲーマー | 各サイトの RSS をキーワード絞り込み |
 | ゼンレスゾーンゼロ-ZZZ-公式（YouTube） | チャンネルの新着動画（PV・番組など） |
+| HoYoLAB 公式（お知らせ / イベント） | 運営の公式アナウンス。X の @ZZZ_JP とほぼ同じ内容 |
 | Google ニュース検索「ゼンレスゾーンゼロ」 | 上記以外の媒体（ファミ通・PR TIMES・Gamer など）の取りこぼし拾い |
 
 Google ニュースのフィードは、個別に購読している 6 サイトと攻略 wiki（GameWith・Game8 など）の
@@ -33,6 +34,31 @@ Google ニュースのフィードは、個別に購読している 6 サイト�
 
 すべて `config.json` の `feeds` で追加・削除・無効化できます。ZZZ だけ欲しい場合は
 CG 系 4 サイトの `enabled` を `false` にしてください。
+
+#### X（旧 Twitter）の公式アカウントについて
+
+X は RSS を提供しておらず、公開されている変換サービス（RSSHub・Nitter 系・openrss など）は
+現在いずれも 403 / 404 / 要ホワイトリストで使えません。そのため @ZZZ_JP の直接取得は
+このリポジトリには入れていません。代わりに、同じ内容が投稿される **HoYoLAB 公式ニュース**を
+API から取得しています。
+
+どうしても X 自体を取り込みたい場合は、rss.app などの外部サービスで @ZZZ_JP の RSS URL を
+発行し、それを `feeds` に普通のフィードとして追加してください（アカウント登録が必要で、
+無料枠では更新頻度に制限があります）。
+
+#### HoYoLAB 公式ニュース
+
+`"type": "hoyolab"` を付けたフィードは、RSS ではなく HoYoLAB のニュース API（JSON）を読みます。
+URL のクエリで取得内容が決まります。
+
+- `gids=8` … ゼンレスゾーンゼロ
+- `type=1` … お知らせ / `type=2` … イベント / `type=3` … 最新情報
+- `page_size` … 1 回に取得する件数
+- `language` … フィード側のキーで指定（既定 `ja-jp`）
+
+`type=3`（最新情報）は公式 YouTube と内容が重複するため、既定では `enabled: false` にしてあります。
+動画も HoYoLAB 側のリンクで受け取りたい場合は、こちらを `true` にして YouTube のフィードを
+`false` にしてください。
 
 ## セットアップ
 
@@ -161,6 +187,7 @@ schtasks /create /tn "CG News Discord Bot" /tr "K:\discord\check-once.bat" /sc m
 - `exclude_keywords`: 含まれる記事は投稿しない
 - `username` / `avatar_url`: このフィードだけ表示名・アイコンを変える（省略時は全体設定の値）
 - `fetch_og_image`: 記事ページから画像を探す処理をフィード単位で切る（省略時は全体設定の値）
+- `type`: `hoyolab` を指定すると RSS ではなく HoYoLAB ニュース API として読む（省略時は RSS/Atom）
 - `webhook_env`: このフィードだけ別チャンネルに流すときの Webhook URL の**環境変数名**。
   URL 自体は `.env`（ローカル）と GitHub の Secrets（Actions）に置くので、リポジトリに漏れません。
   指定した環境変数が空の場合、そのフィードは投稿されずスキップされます

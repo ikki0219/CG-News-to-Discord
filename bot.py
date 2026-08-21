@@ -20,6 +20,7 @@ import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
+from types import SimpleNamespace
 from urllib.parse import urljoin
 
 try:
@@ -275,6 +276,56 @@ def fetch_feed(url: str, feed_state: dict, timeout: int):
     return parsed
 
 
+def fetch_hoyolab(feed_cfg: dict, timeout: int):
+    """HoYoLAB の公式ニュース API を feedparser と同じ形に変換して返す。
+
+    X（旧 Twitter）の公式アカウントは RSS を出しておらず自動取得できないため、
+    同じ内容が載る HoYoLAB のお知らせ／イベント／最新情報をここから取る。
+    URL のクエリ（gids・type・page_size）で取得内容が決まる。
+    """
+    headers = {
+        "User-Agent": USER_AGENT,
+        "x-rpc-language": feed_cfg.get("language", "ja-jp"),
+        "Referer": "https://www.hoyolab.com/",
+    }
+    res = requests.get(feed_cfg["url"], headers=headers, timeout=timeout)
+    res.raise_for_status()
+    payload = res.json()
+    if payload.get("retcode") != 0:
+        raise ValueError(f"HoYoLAB API がエラーを返しました: {payload.get('message')}")
+
+    entries = []
+    for item in (payload.get("data") or {}).get("list") or []:
+        post = item.get("post") or {}
+        post_id = post.get("post_id")
+        if not post_id:
+            continue
+        entry = {
+            "id": f"hoyolab:{post_id}",
+            "link": f"https://www.hoyolab.com/article/{post_id}",
+            "title": post.get("subject", ""),
+            "summary": post.get("desc") or post.get("content") or "",
+        }
+        created = post.get("created_at")
+        if created:
+            # entry_timestamp() が time.mktime() で戻せるようローカル時刻の struct_time にする
+            entry["published_parsed"] = time.localtime(created)
+        image = post.get("cover") or next(
+            (img.get("url") for img in (item.get("cover_list") or []) + (item.get("image_list") or [])
+             if img.get("url")), None)
+        if image:
+            entry["media_thumbnail"] = [{"url": image}]
+        entries.append(entry)
+    return SimpleNamespace(entries=entries)
+
+
+def fetch_source(feed_cfg: dict, feed_state: dict, timeout: int):
+    """フィード種別に応じた取得処理に振り分ける。"""
+    if feed_cfg.get("type") == "hoyolab":
+        return fetch_hoyolab(feed_cfg, timeout)
+    return fetch_feed(feed_cfg["url"], feed_state, timeout)
+
+
 # --------------------------------------------------------------------------- #
 # Discord への投稿
 # --------------------------------------------------------------------------- #
@@ -377,7 +428,7 @@ def process_feed(feed_cfg: dict, config: dict, state: dict, webhook_url: str,
     first_run = not feed_state.get("initialized")
 
     try:
-        parsed = fetch_feed(feed_cfg["url"], feed_state, config.get("http_timeout", 20))
+        parsed = fetch_source(feed_cfg, feed_state, config.get("http_timeout", 20))
     except Exception as exc:  # ネットワーク断で常駐を止めない
         log(f"  {name}: 取得に失敗しました ({exc})")
         return 0
