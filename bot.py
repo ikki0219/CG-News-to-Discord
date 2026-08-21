@@ -241,7 +241,8 @@ def build_payload(entry, feed_cfg: dict, config: dict) -> dict:
     return payload
 
 
-DRY_RUN = False
+DRY_RUN = False   # True なら送信せず内容を表示するだけ
+NO_SAVE = False   # True なら state.json を更新しない（動作確認用）
 
 
 def post_to_discord(webhook_url: str, payload: dict, timeout: int = 20) -> bool:
@@ -367,7 +368,7 @@ def run_once(config: dict, state: dict, webhook_url: str, mark_only: bool = Fals
             feed_cfg.get("webhook_url") or webhook_url,
             mark_only=mark_only,
         )
-    if not DRY_RUN:
+    if not NO_SAVE:
         save_json(STATE_PATH, state)
     log(f"チェック完了: 合計 {total} 件投稿")
     return total
@@ -381,12 +382,16 @@ def main() -> int:
                         help="現在の記事をすべて既読にする（通知は出さない）")
     parser.add_argument("--dry-run", action="store_true",
                         help="Discord に送らず、送信内容を標準出力に表示する")
+    parser.add_argument("--sample", type=int, metavar="N",
+                        help="既読かどうかに関わらず、各フィードの最新 N 件を投稿する"
+                             "（state.json は変更しない。動作確認用）")
     parser.add_argument("--interval", type=int, default=None,
                         help="チェック間隔（秒）。config.json より優先される")
     args = parser.parse_args()
 
-    global DRY_RUN
+    global DRY_RUN, NO_SAVE
     DRY_RUN = args.dry_run
+    NO_SAVE = args.dry_run or bool(args.sample)
 
     load_env()
     webhook_url = os.environ.get("DISCORD_WEBHOOK_URL", "").strip()
@@ -402,12 +407,16 @@ def main() -> int:
     state = load_json(STATE_PATH, {"feeds": {}})
     state.setdefault("feeds", {})
 
-    if DRY_RUN:
-        # state を汚さず、いま取得できる記事で送信内容だけ確認する
-        state = {"feeds": {}}
+    if DRY_RUN or args.sample:
+        # 既読状態を無視して、いま取得できる記事から最新のものを対象にする
         config["post_on_first_run"] = True
-        config["post_delay_seconds"] = 0
-        run_once(config, state, webhook_url or "dry-run")
+        if args.sample:
+            config["max_posts_per_feed"] = args.sample
+            log(f"サンプル投稿モード: 各フィードの最新 {args.sample} 件を投稿します"
+                f"（state.json は変更しません）")
+        else:
+            config["post_delay_seconds"] = 0
+        run_once(config, {"feeds": {}}, webhook_url or "dry-run")
         return 0
 
     if args.test:

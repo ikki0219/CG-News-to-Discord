@@ -46,6 +46,7 @@ DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/xxxxx/yyyyy
 | `check-once.bat` | 1 回だけチェックして終了。タスクスケジューラ向け |
 | `python bot.py --dry-run` | Discord に送らず、送信内容を画面に表示（動作確認用） |
 | `python bot.py --test` | テスト投稿 |
+| `python bot.py --sample 1` | 既読かどうかに関わらず各フィードの最新 1 件を投稿（`state.json` は変更しない） |
 | `python bot.py --reset` | 現時点の記事をすべて既読にして、通知が出ない状態に戻す |
 
 **初回起動時は既存の記事を「既読」として記録するだけで、通知は出ません。**
