@@ -125,6 +125,38 @@ ZZZ と FF14 の両方が対象です。
 キャンペーン告知には期間が書かれていないことが多く、その場合は通知の対象外です。
 FF14 側も、トピックスのうち期間が明記されたものだけが対象になります。
 
+#### 週制限コンテンツなどの定期スケジュール
+
+式輿防衛戦や零号ホロウの週制限リセットは、記事として告知されません
+（HoYoLAB のお知らせ 90 件を調べても期間表記はありませんでした）。
+そのため `recurring_events` に起点と周期を書いておき、そこから今の期間を計算します。
+
+```json
+"recurring_events": [
+  {
+    "name": "式輿防衛戦（週制限リセット）",
+    "enabled": true,
+    "anchor": "2026-08-24 05:00",
+    "every_days": 7,
+    "hours_before": [24],
+    "url": "https://zenless.hoyoverse.com/ja-jp/",
+    "username": "ゼンレスゾーンゼロ ニュース",
+    "webhook_env": "DISCORD_WEBHOOK_URL_ZZZ"
+  }
+]
+```
+
+- `anchor`: ある回の開始日時（JST）。既定は**月曜 5:00** です。ZZZ の Asia サーバーは UTC+8 で
+  動いているため、サーバー時刻 4:00 のリセットが日本時間では 5:00 になります
+  （公式お知らせの期間表記も 05:00 開始 / 04:59 終了で一致します）。
+  過去・未来どちらの日付でも、そこから周期を割り出して**現在の期間**を求めます
+- `every_days`: 周期の長さ（日）。2 週間ごとなら `14`
+- `hours_before`: このスケジュール専用の通知タイミング。週次に 72 時間前は早すぎるので `[24]`
+  にしてあります（省略すると `event_reminders` の値を使います）
+
+登録された期間は通常のイベントと同じ扱いなので、**一覧にも並び、終了間近の通知も出ます**。
+週が変わると別の期間として登録し直されるため、毎週の告知と通知が自動で続きます。
+
 #### HoYoLAB 公式ニュース
 
 `"type": "hoyolab"` を付けたフィードは、RSS ではなく HoYoLAB のニュース API（JSON）を読みます。
@@ -250,6 +282,7 @@ schtasks /create /tn "CG News Discord Bot" /tr "K:\discord\check-once.bat" /sc m
 | `fetch_og_image` | フィードが画像を持たないとき、記事ページから og:image や本文画像を探す |
 | `summary_length` | 本文抜粋の最大文字数 |
 | `event_reminders` | ゲーム内イベントの終了間近通知（`enabled` / `hours_before` / `color`） |
+| `recurring_events` | 週制限リセットなど、周期で繰り返す予定の定義（配列） |
 | `event_list` | イベント一覧の投稿（`enabled` / `daily_hour` / `post_on_new` / `max_items` / `color`） |
 
 ### フィードごとの設定

@@ -26,6 +26,34 @@
     "max_items": 20,
     "color": 3447003
   },
+  "recurring_events": [
+    {
+      "name": "式輿防衛戦（週制限リセット）",
+      "enabled": true,
+      "anchor": "2026-08-24 05:00",
+      "every_days": 7,
+      "hours_before": [
+        24
+      ],
+      "url": "https://zenless.hoyoverse.com/ja-jp/",
+      "source": "ゲーム内スケジュール",
+      "username": "ゼンレスゾーンゼロ ニュース",
+      "webhook_env": "DISCORD_WEBHOOK_URL_ZZZ"
+    },
+    {
+      "name": "零号ホロウ（週制限リセット）",
+      "enabled": true,
+      "anchor": "2026-08-24 05:00",
+      "every_days": 7,
+      "hours_before": [
+        24
+      ],
+      "url": "https://zenless.hoyoverse.com/ja-jp/",
+      "source": "ゲーム内スケジュール",
+      "username": "ゼンレスゾーンゼロ ニュース",
+      "webhook_env": "DISCORD_WEBHOOK_URL_ZZZ"
+    }
+  ],
   "feeds": [
     {
       "name": "CGWORLD.jp",

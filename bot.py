@@ -607,6 +607,58 @@ def register_events(feed_cfg: dict, entries, state: dict) -> list:
     return added
 
 
+def parse_jst_datetime(text: str):
+    """"2026-08-24 04:00" 形式の文字列を epoch 秒（JST 解釈）にする。"""
+    for fmt in ("%Y-%m-%d %H:%M", "%Y/%m/%d %H:%M", "%Y-%m-%d"):
+        try:
+            return datetime.strptime(text.strip(), fmt).replace(tzinfo=JST).timestamp()
+        except (ValueError, AttributeError):
+            continue
+    return None
+
+
+def register_recurring_events(config: dict, state: dict) -> list:
+    """週制限コンテンツなど、一定周期で切り替わる予定を今回の周期分だけ登録する。
+
+    式輿防衛戦や零号ホロウの週制限リセットは記事として告知されないため、
+    起点（anchor）と周期（every_days）から現在の期間を計算して events に入れる。
+    新しい周期に入ると別の ID になるので、一覧の投稿と終了間近の通知が自動で効く。
+    """
+    events = state.setdefault("events", {})
+    now = time.time()
+    added = []
+
+    for spec in config.get("recurring_events") or []:
+        if not spec.get("enabled", True):
+            continue
+        anchor_ts = parse_jst_datetime(spec.get("anchor", ""))
+        length = float(spec.get("every_days", 7)) * 86400
+        if anchor_ts is None or length <= 0:
+            log(f"  WARN: recurring_events の設定が不正です: {spec.get('name', '(名前なし)')}")
+            continue
+
+        index = int((now - anchor_ts) // length)   # いま何周期目か
+        start = anchor_ts + index * length
+        uid = f"recurring:{spec.get('name', '?')}:{index}"
+        if uid not in events:
+            added.append(uid)
+        event = events.setdefault(uid, {})
+        event.update({
+            "title": spec.get("name", "(名前なし)"),
+            "url": spec.get("url", ""),
+            "start": start,
+            "end": start + length,
+            "source": spec.get("source", "ゲーム内スケジュール"),
+            "username": spec.get("username"),
+            "webhook_env": spec.get("webhook_env"),
+        })
+        if spec.get("hours_before"):
+            # 週次のものに 72 時間前の通知は早すぎるので、個別に指定できるようにする
+            event["hours_before"] = spec["hours_before"]
+        event.setdefault("notified", [])
+    return added
+
+
 def humanize_left(hours_left: float) -> str:
     if hours_left >= 24:
         return f"残り約 {int(hours_left // 24)} 日"
@@ -720,7 +772,7 @@ def check_event_reminders(config: dict, state: dict, default_webhook: str) -> in
     opts = config.get("event_reminders") or {}
     if not opts.get("enabled", True):
         return 0
-    thresholds = sorted({int(h) for h in opts.get("hours_before", [72, 24])}, reverse=True)
+    default_hours = opts.get("hours_before", [72, 24])
     events = state.setdefault("events", {})
     now = time.time()
     sent = 0
@@ -734,6 +786,7 @@ def check_event_reminders(config: dict, state: dict, default_webhook: str) -> in
 
         hours_left = (end - now) / 3600
         notified = event.setdefault("notified", [])
+        thresholds = sorted({int(h) for h in event.get("hours_before", default_hours)}, reverse=True)
         # 通知間隔をまたいで起動した場合も 1 通で済むよう、該当分をまとめて処理する
         due = [h for h in thresholds if hours_left <= h and h not in notified]
         if not due:
@@ -866,7 +919,7 @@ def run_once(config: dict, state: dict, webhook_url: str, mark_only: bool = Fals
         return 0
     log(f"チェック開始（{len(feeds)} フィード）")
     total = 0
-    new_events = []
+    new_events = register_recurring_events(config, state)
     for feed_cfg in feeds:
         target = resolve_webhook(feed_cfg, webhook_url)
         if not target and not DRY_RUN:
