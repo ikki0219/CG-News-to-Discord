@@ -43,7 +43,7 @@
       ],
       "etag": "W/\"33b4-65a1e08cf2260\"",
       "modified": "Fri, 28 Aug 2026 16:35:03 GMT",
-      "last_checked": "2026-08-29T17:49:32.005561+00:00",
+      "last_checked": "2026-08-29T20:44:59.153562+00:00",
       "initialized": true
     },
     "https://3dnchu.com/feed/": {
@@ -66,10 +66,13 @@
         "https://3dnchu.com/?p=1067622",
         "https://3dnchu.com/?p=1067663",
         "https://3dnchu.com/?p=1067680",
-        "https://3dnchu.com/?p=1067700"
+        "https://3dnchu.com/?p=1067700",
+        "https://3dnchu.com/?p=1067726",
+        "https://3dnchu.com/?p=1067733",
+        "https://3dnchu.com/?p=1067746"
       ],
-      "modified": "Fri, 28 Aug 2026 03:09:13 GMT",
-      "last_checked": "2026-08-29T17:49:33.314663+00:00",
+      "modified": "Sat, 29 Aug 2026 19:22:26 GMT",
+      "last_checked": "2026-08-29T20:45:00.378459+00:00",
       "initialized": true
     },
     "https://www.cgchannel.com/feed/": {
@@ -107,7 +110,7 @@
         "https://www.cgchannel.com/?p=178307"
       ],
       "modified": "Fri, 28 Aug 2026 07:07:30 GMT",
-      "last_checked": "2026-08-29T17:49:33.820241+00:00",
+      "last_checked": "2026-08-29T20:45:05.897292+00:00",
       "initialized": true
     },
     "https://80.lv/feed/": {
@@ -215,7 +218,7 @@
         "https://80.lv/articles/check-out-how-this-cool-traffic-light-animation-was-made-using-c4d/"
       ],
       "etag": "W/\"28c2-URXdobSi/sf5w7iF1tgPeQbBJ3c\"",
-      "last_checked": "2026-08-29T17:49:34.280998+00:00",
+      "last_checked": "2026-08-29T20:45:06.317861+00:00",
       "initialized": true
     },
     "https://www.4gamer.net/rss/index.xml": {
@@ -623,7 +626,7 @@
       ],
       "etag": "\"13a8e-65a2bcee45fab-gzip\"",
       "modified": "Sat, 29 Aug 2026 09:01:01 GMT",
-      "last_checked": "2026-08-29T17:49:37.163112+00:00",
+      "last_checked": "2026-08-29T20:45:07.440413+00:00",
       "initialized": true
     },
     "https://game.watch.impress.co.jp/data/rss/1.0/gmw/feed.rdf": {
@@ -833,9 +836,9 @@
         "https://game.watch.impress.co.jp/docs/kikaku/2136748.html?ref=rss",
         "https://game.watch.impress.co.jp/docs/kikaku/2136749.html?ref=rss"
       ],
-      "etag": "\"6a9319d0-6268\"",
-      "modified": "Sat, 29 Aug 2026 17:41:36 GMT",
-      "last_checked": "2026-08-29T17:49:38.184089+00:00",
+      "etag": "\"6a934401-6268\"",
+      "modified": "Sat, 29 Aug 2026 20:41:37 GMT",
+      "last_checked": "2026-08-29T20:45:08.425368+00:00",
       "initialized": true
     },
     "https://www.inside-games.jp/rss20/index.rdf": {
@@ -1241,7 +1244,7 @@
         "https://www.inside-games.jp/article/2026/08/29/186948.html",
         "https://www.inside-games.jp/article/2026/08/29/186949.html"
       ],
-      "last_checked": "2026-08-29T17:49:39.490444+00:00",
+      "last_checked": "2026-08-29T20:45:09.912795+00:00",
       "initialized": true
     },
     "https://www.gamespark.jp/rss20/index.rdf": {
@@ -1647,7 +1650,7 @@
         "http://www.gamespark.jp/article/2026/08/29/171487.html",
         "http://www.gamespark.jp/article/2026/08/29/171488.html"
       ],
-      "last_checked": "2026-08-29T17:49:40.276683+00:00",
+      "last_checked": "2026-08-29T20:45:10.770966+00:00",
       "initialized": true
     },
     "https://automaton-media.com/feed/": {
@@ -1925,7 +1928,7 @@
       ],
       "etag": "W/\"3179d545d8e102737b456c9b837a72f4\"",
       "modified": "Sat, 29 Aug 2026 14:07:02 GMT",
-      "last_checked": "2026-08-29T17:49:40.614056+00:00",
+      "last_checked": "2026-08-29T20:45:12.171867+00:00",
       "initialized": true
     },
     "https://news.denfaminicogamer.jp/feed": {
@@ -2333,7 +2336,7 @@
       ],
       "etag": "W/\"9e2640b9a66d4a020d2a3a92c2b47fa3\"",
       "modified": "Sat, 29 Aug 2026 15:36:10 GMT",
-      "last_checked": "2026-08-29T17:49:44.056539+00:00",
+      "last_checked": "2026-08-29T20:45:13.810486+00:00",
       "initialized": true
     },
     "https://www.youtube.com/feeds/videos.xml?channel_id=UCt09C9DPSuOGpHoitbcyCIQ": {
@@ -2357,7 +2360,7 @@
         "yt:video:kxtutUwwpPs",
         "yt:video:2lCBTA7TFF0"
       ],
-      "last_checked": "2026-08-29T17:49:44.215412+00:00",
+      "last_checked": "2026-08-29T20:45:13.999151+00:00",
       "initialized": true
     },
     "https://news.google.com/rss/search?q=%E3%82%BC%E3%83%B3%E3%83%AC%E3%82%B9%E3%82%BE%E3%83%BC%E3%83%B3%E3%82%BC%E3%83%AD&hl=ja&gl=JP&ceid=JP:ja": {
@@ -2591,7 +2594,7 @@
         "CBMiZkFVX3lxTE1sMW9FZHVLTzVjTGcyRVBNX1l6NzRWSVFMUVM2ZXR3dmRJMzdrOThERVJpZ3RCSWliU3BlQTVfWHVHZUJtWTR0OWkzNEE5ZEJDWHlyU1FRZjF3SUpHX3VrQU5uSE5jZw",
         "CBMiggFBVV95cUxPR1RQcEpkNFlsMXVvVDlEV0RwbjNDbmYxSFNwQ2trUHZQMHlCUHk1NU82anN4dDRvMXgxeXRzYTFfWk94WUU5VFBTLWhmUDdITkNHWjF2OWVZNGljSTBhR1N3NW0zZWV5YWhIVWdFakhZMVF1OWJhcE9EN2Q2amdjVXl3"
       ],
-      "last_checked": "2026-08-29T17:49:45.070383+00:00",
+      "last_checked": "2026-08-29T20:45:14.592015+00:00",
       "initialized": true
     },
     "https://bbs-api-os.hoyolab.com/community/post/wapi/getNewsList?gids=8&page_size=15&type=1": {
@@ -2613,7 +2616,7 @@
         "hoyolab:46027894",
         "hoyolab:46451353"
       ],
-      "last_checked": "2026-08-29T17:49:45.896297+00:00",
+      "last_checked": "2026-08-29T20:45:15.625520+00:00",
       "initialized": true
     },
     "https://bbs-api-os.hoyolab.com/community/post/wapi/getNewsList?gids=8&page_size=15&type=2": {
@@ -2637,7 +2640,7 @@
         "hoyolab:46480490",
         "hoyolab:46481622"
       ],
-      "last_checked": "2026-08-29T17:49:46.347002+00:00",
+      "last_checked": "2026-08-29T20:45:16.010729+00:00",
       "initialized": true
     },
     "https://jp.finalfantasyxiv.com/lodestone/news/topics.xml": {
@@ -2668,7 +2671,7 @@
         "tag:jp.finalfantasyxiv.com,2023-04-01:/lodestone/lodestone/topics/detail/c1cf811f20826de17c6959577eaffca5d5185a6b",
         "tag:jp.finalfantasyxiv.com,2023-04-01:/lodestone/lodestone/topics/detail/ef09bdd8d5026d25eeabd2ebc2cbca5bcc38544a"
       ],
-      "last_checked": "2026-08-29T17:49:46.980834+00:00",
+      "last_checked": "2026-08-29T20:45:16.386093+00:00",
       "initialized": true
     },
     "https://jp.finalfantasyxiv.com/lodestone/news/news.xml": {
@@ -2700,7 +2703,7 @@
         "tag:jp.finalfantasyxiv.com,2023-04-01:/lodestone/lodestone/news/detail/364e99aa2062be6897e02f2425f4a059e0c9af87",
         "tag:jp.finalfantasyxiv.com,2023-04-01:/lodestone/lodestone/news/detail/a75bb1d555c4eff5213ad6d5b2831ca80ffd1aa9"
       ],
-      "last_checked": "2026-08-29T17:49:47.142163+00:00",
+      "last_checked": "2026-08-29T20:45:16.743776+00:00",
       "initialized": true
     },
     "ff14:https://www.4gamer.net/rss/index.xml": {
@@ -3108,7 +3111,7 @@
       ],
       "etag": "\"13a8e-65a2bcee45fab-gzip\"",
       "modified": "Sat, 29 Aug 2026 09:01:01 GMT",
-      "last_checked": "2026-08-29T17:49:48.340886+00:00",
+      "last_checked": "2026-08-29T20:45:17.927057+00:00",
       "initialized": true
     },
     "ff14:https://game.watch.impress.co.jp/data/rss/1.0/gmw/feed.rdf": {
@@ -3318,9 +3321,9 @@
         "https://game.watch.impress.co.jp/docs/kikaku/2136748.html?ref=rss",
         "https://game.watch.impress.co.jp/docs/kikaku/2136749.html?ref=rss"
       ],
-      "etag": "\"6a9319d0-6268\"",
-      "modified": "Sat, 29 Aug 2026 17:41:36 GMT",
-      "last_checked": "2026-08-29T17:49:49.221481+00:00",
+      "etag": "\"6a934401-6268\"",
+      "modified": "Sat, 29 Aug 2026 20:41:37 GMT",
+      "last_checked": "2026-08-29T20:45:18.777479+00:00",
       "initialized": true
     },
     "ff14:https://www.inside-games.jp/rss20/index.rdf": {
@@ -3726,7 +3729,7 @@
         "https://www.inside-games.jp/article/2026/08/29/186948.html",
         "https://www.inside-games.jp/article/2026/08/29/186949.html"
       ],
-      "last_checked": "2026-08-29T17:49:50.215718+00:00",
+      "last_checked": "2026-08-29T20:45:19.796848+00:00",
       "initialized": true
     },
     "ff14:https://www.gamespark.jp/rss20/index.rdf": {
@@ -4132,7 +4135,7 @@
         "http://www.gamespark.jp/article/2026/08/29/171487.html",
         "http://www.gamespark.jp/article/2026/08/29/171488.html"
       ],
-      "last_checked": "2026-08-29T17:49:51.033922+00:00",
+      "last_checked": "2026-08-29T20:45:20.055812+00:00",
       "initialized": true
     },
     "ff14:https://automaton-media.com/feed/": {
@@ -4410,7 +4413,7 @@
       ],
       "etag": "W/\"3179d545d8e102737b456c9b837a72f4\"",
       "modified": "Sat, 29 Aug 2026 14:07:02 GMT",
-      "last_checked": "2026-08-29T17:49:51.835314+00:00",
+      "last_checked": "2026-08-29T20:45:20.112172+00:00",
       "initialized": true
     },
     "ff14:https://news.denfaminicogamer.jp/feed": {
@@ -4818,7 +4821,7 @@
       ],
       "etag": "W/\"9e2640b9a66d4a020d2a3a92c2b47fa3\"",
       "modified": "Sat, 29 Aug 2026 15:36:10 GMT",
-      "last_checked": "2026-08-29T17:49:53.406829+00:00",
+      "last_checked": "2026-08-29T20:45:23.400083+00:00",
       "initialized": true
     },
     "https://www.youtube.com/feeds/videos.xml?channel_id=UCpx2BZg8ABgaDV50sGJtWAg": {
@@ -4845,7 +4848,7 @@
         "yt:video:s3pCpZ37sVg",
         "yt:video:666D3uXbAaw"
       ],
-      "last_checked": "2026-08-29T17:49:53.649059+00:00",
+      "last_checked": "2026-08-29T20:45:23.442874+00:00",
       "initialized": true
     },
     "https://news.google.com/rss/search?q=%22%E3%83%95%E3%82%A1%E3%82%A4%E3%83%8A%E3%83%AB%E3%83%95%E3%82%A1%E3%83%B3%E3%82%BF%E3%82%B8%E3%83%BCXIV%22%20OR%20%22FF14%22&hl=ja&gl=JP&ceid=JP:ja": {
@@ -5115,9 +5118,10 @@
         "CBMiaEFVX3lxTE9UZUtxRldTeGdyeG5tWUFMR3Z4VXhrYzJvTk0zN2dkU0puWERWazgwRnlkNWtRX2NFRDRxMU43TjhESFF2VFF4NThVM3VmRWkwQXdmWHI4WFFlbnh3b29BbmNKdHB1a0cw",
         "CBMiVkFVX3lxTE0yaVFvY2FUeGdRMDdKMHZfTEJDNzdGYU83czRFNnpzM3dGRlozbWdfaDNxcXlRdzZEUU9VRHJqT21reThIRlY0d2hERjBqT2hWaUtRVVh3",
         "CBMiXEFVX3lxTE9zSS1pVTZwTEFFb3ZaYkFySmVNNUdJcTFVbE9WWkMzal81ZFpPN3Bna2p6V0FVRWdRQ2dLZWVTV3RnTEVjdENjbFJ1bXMyR2RDMDJKemFDeVAzN203",
-        "CBMiU0FVX3lxTE84MzZVeXdkUjFCS05wSmFmeXdNZGNGeGhOM2RKdy15WFdVb3k5WEFuU1dZUmFWZnFSZmFvbnR3LXhrcmh3UGFXYTljLWJ0NnVJUV80"
+        "CBMiU0FVX3lxTE84MzZVeXdkUjFCS05wSmFmeXdNZGNGeGhOM2RKdy15WFdVb3k5WEFuU1dZUmFWZnFSZmFvbnR3LXhrcmh3UGFXYTljLWJ0NnVJUV80",
+        "CBMiaEFVX3lxTE9mem5uY1dhQXFNdm13ZWV5SmpiNTlYN2JmejRKLUNtV2h0dGEzTWhCSExhZWQ3bEtHREpfamd4M3RaUHplUWhWLUxCS3huTjVrdjNsOWVDTlpVblRBUm9jWlhzUFJubC11"
       ],
-      "last_checked": "2026-08-29T17:49:54.211878+00:00",
+      "last_checked": "2026-08-29T20:45:23.983896+00:00",
       "initialized": true
     }
   },
@@ -5235,7 +5239,9 @@
       "hours_before": [
         24
       ],
-      "notified": []
+      "notified": [
+        24
+      ]
     },
     "recurring:零号ホロウ（週制限リセット）:0": {
       "title": "零号ホロウ（週制限リセット）",
@@ -5248,7 +5254,9 @@
       "hours_before": [
         24
       ],
-      "notified": []
+      "notified": [
+        24
+      ]
     },
     "tag:jp.finalfantasyxiv.com,2023-04-01:/lodestone/lodestone/topics/detail/16bf2a62e2a787a2db32d7b7d076e453edbc0c1c": {
       "title": "8月31日（月）からサントリー自販機にFFXIVオリジナルラベル缶が登場！",
