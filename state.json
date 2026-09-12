@@ -87,7 +87,7 @@
       ],
       "etag": "W/\"329a-65b3e5f33c735\"",
       "modified": "Sat, 12 Sep 2026 00:35:03 GMT",
-      "last_checked": "2026-09-12T13:41:48.103492+00:00",
+      "last_checked": "2026-09-12T16:52:36.803500+00:00",
       "initialized": true
     },
     "https://3dnchu.com/feed/": {
@@ -150,7 +150,7 @@
         "https://3dnchu.com/?p=1068330"
       ],
       "modified": "Thu, 10 Sep 2026 17:54:32 GMT",
-      "last_checked": "2026-09-12T13:41:50.721063+00:00",
+      "last_checked": "2026-09-12T16:52:37.699038+00:00",
       "initialized": true
     },
     "https://www.cgchannel.com/feed/": {
@@ -207,7 +207,7 @@
         "https://www.cgchannel.com/?p=178645"
       ],
       "modified": "Sat, 12 Sep 2026 08:16:14 GMT",
-      "last_checked": "2026-09-12T13:41:51.377073+00:00",
+      "last_checked": "2026-09-12T16:52:38.103919+00:00",
       "initialized": true
     },
     "https://80.lv/feed/": {
@@ -488,10 +488,11 @@
         "https://80.lv/articles/this-blender-add-on-lets-you-add-jiggle-physics-to-bodies-clothes-and-hair/",
         "https://80.lv/articles/what-to-play-top-10-best-games-from-steam-programming-fest-2026/",
         "https://80.lv/articles/this-simulation-game-encourages-you-to-be-a-reckless-and-fast-bus-driver/",
-        "https://80.lv/articles/this-free-blender-tool-makes-hair-rigging-easier/"
+        "https://80.lv/articles/this-free-blender-tool-makes-hair-rigging-easier/",
+        "https://80.lv/articles/rooms-change-when-you-look-away-in-this-sci-fi-horror-game/"
       ],
-      "etag": "W/\"2cd3-d8aCu2qhXr9E4lREoOXWL9VKSzM\"",
-      "last_checked": "2026-09-12T13:41:51.875125+00:00",
+      "etag": "W/\"2ce2-RFNG/xs2kT0Tdq/bwIy75YDMEhg\"",
+      "last_checked": "2026-09-12T16:52:38.460117+00:00",
       "initialized": true
     },
     "https://www.4gamer.net/rss/index.xml": {
@@ -897,16 +898,13 @@
         "https://www.4gamer.net/games/520/G052062/20260911058/",
         "https://www.4gamer.net/games/041/G104197/20260911013/"
       ],
-      "etag": "\"12aa0-65b488379a6fa-gzip\"",
-      "modified": "Sat, 12 Sep 2026 12:41:01 GMT",
-      "last_checked": "2026-09-12T13:41:55.272554+00:00",
+      "etag": "\"12aa0-65b49e91ff69f-gzip\"",
+      "modified": "Sat, 12 Sep 2026 14:21:02 GMT",
+      "last_checked": "2026-09-12T16:52:41.155927+00:00",
       "initialized": true
     },
     "https://game.watch.impress.co.jp/data/rss/1.0/gmw/feed.rdf": {
       "seen": [
-        "https://game.watch.impress.co.jp/docs/news/2135973.html?ref=rss",
-        "https://game.watch.impress.co.jp/docs/news/2135925.html?ref=rss",
-        "https://game.watch.impress.co.jp/docs/news/2136064.html?ref=rss",
         "https://game.watch.impress.co.jp/docs/news/2136086.html?ref=rss",
         "https://game.watch.impress.co.jp/docs/news/2136090.html?ref=rss",
         "https://game.watch.impress.co.jp/docs/news/2135787.html?ref=rss",
@@ -1303,19 +1301,18 @@
         "https://game.watch.impress.co.jp/docs/news/2140237.html?ref=rss",
         "https://game.watch.impress.co.jp/docs/news/2140332.html?ref=rss",
         "https://game.watch.impress.co.jp/docs/news/2140406.html?ref=rss",
-        "https://game.watch.impress.co.jp/docs/news/2140427.html?ref=rss"
+        "https://game.watch.impress.co.jp/docs/news/2140427.html?ref=rss",
+        "https://game.watch.impress.co.jp/docs/news/2140359.html?ref=rss",
+        "https://game.watch.impress.co.jp/docs/news/2138810.html?ref=rss",
+        "https://game.watch.impress.co.jp/docs/news/2138579.html?ref=rss"
       ],
-      "etag": "\"6aa55689-5de0\"",
-      "modified": "Sat, 12 Sep 2026 13:41:29 GMT",
-      "last_checked": "2026-09-12T13:41:56.118653+00:00",
+      "etag": "\"6aa5830f-5e43\"",
+      "modified": "Sat, 12 Sep 2026 16:51:27 GMT",
+      "last_checked": "2026-09-12T16:52:41.760146+00:00",
       "initialized": true
     },
     "https://www.inside-games.jp/rss20/index.rdf": {
       "seen": [
-        "https://www.inside-games.jp/article/2026/09/04/187259.html",
-        "https://www.inside-games.jp/article/2026/09/04/187260.html",
-        "https://www.inside-games.jp/article/2026/09/04/187261.html",
-        "https://www.inside-games.jp/article/2026/09/04/187262.html",
         "https://www.inside-games.jp/article/2026/09/04/187263.html",
         "https://www.inside-games.jp/article/2026/09/04/187264.html",
         "https://www.inside-games.jp/article/2026/09/04/187265.html",
@@ -1711,9 +1708,13 @@
         "https://www.inside-games.jp/article/2026/09/12/187655.html",
         "https://www.inside-games.jp/article/2026/09/12/187656.html",
         "https://www.inside-games.jp/article/2026/09/12/187657.html",
-        "https://www.inside-games.jp/article/2026/09/12/187658.html"
+        "https://www.inside-games.jp/article/2026/09/12/187658.html",
+        "https://www.inside-games.jp/article/2026/09/12/187659.html",
+        "https://www.inside-games.jp/article/2026/09/13/187660.html",
+        "https://www.inside-games.jp/article/2026/09/13/187661.html",
+        "https://www.inside-games.jp/article/2026/09/13/187662.html"
       ],
-      "last_checked": "2026-09-12T13:41:57.370302+00:00",
+      "last_checked": "2026-09-12T16:52:42.921200+00:00",
       "initialized": true
     },
     "https://www.gamespark.jp/rss20/index.rdf": {
@@ -2119,7 +2120,7 @@
         "http://www.gamespark.jp/article/2026/09/12/172177.html",
         "http://www.gamespark.jp/article/2026/09/12/172178.html"
       ],
-      "last_checked": "2026-09-12T13:41:57.788402+00:00",
+      "last_checked": "2026-09-12T16:52:43.363100+00:00",
       "initialized": true
     },
     "https://automaton-media.com/feed/": {
@@ -2527,12 +2528,11 @@
       ],
       "etag": "W/\"11bb900f2aeed667a6815f033ed4d164\"",
       "modified": "Sat, 12 Sep 2026 13:28:35 GMT",
-      "last_checked": "2026-09-12T13:41:58.527049+00:00",
+      "last_checked": "2026-09-12T16:52:43.499109+00:00",
       "initialized": true
     },
     "https://news.denfaminicogamer.jp/feed": {
       "seen": [
-        "https://news.denfaminicogamer.jp/news/2609042c",
         "https://news.denfaminicogamer.jp/news/2609042f",
         "https://news.denfaminicogamer.jp/news/260904s",
         "https://news.denfaminicogamer.jp/news/2609042r",
@@ -2931,11 +2931,12 @@
         "https://news.denfaminicogamer.jp/news/260912u",
         "https://news.denfaminicogamer.jp/news/260912y",
         "https://news.denfaminicogamer.jp/news/2609122b",
-        "https://news.denfaminicogamer.jp/news/260912x"
+        "https://news.denfaminicogamer.jp/news/260912x",
+        "https://news.denfaminicogamer.jp/news/2609122c"
       ],
-      "etag": "W/\"3118cea85caf07aaf8ef5d03550a2653\"",
-      "modified": "Sat, 12 Sep 2026 13:30:26 GMT",
-      "last_checked": "2026-09-12T13:42:00.398082+00:00",
+      "etag": "W/\"db05f134fdf0d4320283372489d5bc3b\"",
+      "modified": "Sat, 12 Sep 2026 15:00:13 GMT",
+      "last_checked": "2026-09-12T16:52:45.376252+00:00",
       "initialized": true
     },
     "https://www.youtube.com/feeds/videos.xml?channel_id=UCt09C9DPSuOGpHoitbcyCIQ": {
@@ -2966,7 +2967,7 @@
         "yt:video:-fyc5pyVXUI",
         "yt:video:fr-magpdEtU"
       ],
-      "last_checked": "2026-09-12T13:42:00.646336+00:00",
+      "last_checked": "2026-09-12T16:52:45.550443+00:00",
       "initialized": true
     },
     "https://news.google.com/rss/search?q=%E3%82%BC%E3%83%B3%E3%83%AC%E3%82%B9%E3%82%BE%E3%83%BC%E3%83%B3%E3%82%BC%E3%83%AD&hl=ja&gl=JP&ceid=JP:ja": {
@@ -3407,7 +3408,7 @@
         "hoyolab:46622814",
         "hoyolab:46627441"
       ],
-      "last_checked": "2026-09-12T13:42:05.971142+00:00",
+      "last_checked": "2026-09-12T16:52:55.083041+00:00",
       "initialized": true
     },
     "https://bbs-api-os.hoyolab.com/community/post/wapi/getNewsList?gids=8&page_size=15&type=2": {
@@ -3434,7 +3435,7 @@
         "hoyolab:46623562",
         "hoyolab:46624270"
       ],
-      "last_checked": "2026-09-12T13:42:06.716271+00:00",
+      "last_checked": "2026-09-12T16:52:55.584280+00:00",
       "initialized": true
     },
     "https://jp.finalfantasyxiv.com/lodestone/news/topics.xml": {
@@ -3480,7 +3481,7 @@
         "tag:jp.finalfantasyxiv.com,2023-04-01:/lodestone/lodestone/topics/detail/b61ad85b08e19b0f66eb5d916c8556fb40d35562",
         "tag:jp.finalfantasyxiv.com,2023-04-01:/lodestone/lodestone/topics/detail/57a0d7ec5a7e75c3557b580c08c731e1b55fc556"
       ],
-      "last_checked": "2026-09-12T13:42:07.649032+00:00",
+      "last_checked": "2026-09-12T16:52:55.910424+00:00",
       "initialized": true
     },
     "https://jp.finalfantasyxiv.com/lodestone/news/news.xml": {
@@ -3545,7 +3546,7 @@
         "tag:jp.finalfantasyxiv.com,2023-04-01:/lodestone/lodestone/news/detail/0ca7f952c092c7091107097e8afe216a58f9c5b1",
         "tag:jp.finalfantasyxiv.com,2023-04-01:/lodestone/lodestone/news/detail/7f37b9e7978237f1cc8c71b2ced97007c8621bee"
       ],
-      "last_checked": "2026-09-12T13:42:08.346717+00:00",
+      "last_checked": "2026-09-12T16:52:56.035830+00:00",
       "initialized": true
     },
     "ff14:https://www.4gamer.net/rss/index.xml": {
@@ -3951,16 +3952,13 @@
         "https://www.4gamer.net/games/520/G052062/20260911058/",
         "https://www.4gamer.net/games/041/G104197/20260911013/"
       ],
-      "etag": "\"12aa0-65b488379a6fa-gzip\"",
-      "modified": "Sat, 12 Sep 2026 12:41:01 GMT",
-      "last_checked": "2026-09-12T13:42:09.337871+00:00",
+      "etag": "\"12aa0-65b49e91ff69f-gzip\"",
+      "modified": "Sat, 12 Sep 2026 14:21:02 GMT",
+      "last_checked": "2026-09-12T16:52:56.699770+00:00",
       "initialized": true
     },
     "ff14:https://game.watch.impress.co.jp/data/rss/1.0/gmw/feed.rdf": {
       "seen": [
-        "https://game.watch.impress.co.jp/docs/news/2135973.html?ref=rss",
-        "https://game.watch.impress.co.jp/docs/news/2135925.html?ref=rss",
-        "https://game.watch.impress.co.jp/docs/news/2136064.html?ref=rss",
         "https://game.watch.impress.co.jp/docs/news/2136086.html?ref=rss",
         "https://game.watch.impress.co.jp/docs/news/2136090.html?ref=rss",
         "https://game.watch.impress.co.jp/docs/news/2135787.html?ref=rss",
@@ -4357,19 +4355,18 @@
         "https://game.watch.impress.co.jp/docs/news/2140237.html?ref=rss",
         "https://game.watch.impress.co.jp/docs/news/2140332.html?ref=rss",
         "https://game.watch.impress.co.jp/docs/news/2140406.html?ref=rss",
-        "https://game.watch.impress.co.jp/docs/news/2140427.html?ref=rss"
+        "https://game.watch.impress.co.jp/docs/news/2140427.html?ref=rss",
+        "https://game.watch.impress.co.jp/docs/news/2140359.html?ref=rss",
+        "https://game.watch.impress.co.jp/docs/news/2138810.html?ref=rss",
+        "https://game.watch.impress.co.jp/docs/news/2138579.html?ref=rss"
       ],
-      "etag": "\"6aa55689-5de0\"",
-      "modified": "Sat, 12 Sep 2026 13:41:29 GMT",
-      "last_checked": "2026-09-12T13:42:10.207638+00:00",
+      "etag": "\"6aa5830f-5e43\"",
+      "modified": "Sat, 12 Sep 2026 16:51:27 GMT",
+      "last_checked": "2026-09-12T16:52:57.295080+00:00",
       "initialized": true
     },
     "ff14:https://www.inside-games.jp/rss20/index.rdf": {
       "seen": [
-        "https://www.inside-games.jp/article/2026/09/04/187259.html",
-        "https://www.inside-games.jp/article/2026/09/04/187260.html",
-        "https://www.inside-games.jp/article/2026/09/04/187261.html",
-        "https://www.inside-games.jp/article/2026/09/04/187262.html",
         "https://www.inside-games.jp/article/2026/09/04/187263.html",
         "https://www.inside-games.jp/article/2026/09/04/187264.html",
         "https://www.inside-games.jp/article/2026/09/04/187265.html",
@@ -4765,9 +4762,13 @@
         "https://www.inside-games.jp/article/2026/09/12/187655.html",
         "https://www.inside-games.jp/article/2026/09/12/187656.html",
         "https://www.inside-games.jp/article/2026/09/12/187657.html",
-        "https://www.inside-games.jp/article/2026/09/12/187658.html"
+        "https://www.inside-games.jp/article/2026/09/12/187658.html",
+        "https://www.inside-games.jp/article/2026/09/12/187659.html",
+        "https://www.inside-games.jp/article/2026/09/13/187660.html",
+        "https://www.inside-games.jp/article/2026/09/13/187661.html",
+        "https://www.inside-games.jp/article/2026/09/13/187662.html"
       ],
-      "last_checked": "2026-09-12T13:42:11.335809+00:00",
+      "last_checked": "2026-09-12T16:52:58.218610+00:00",
       "initialized": true
     },
     "ff14:https://www.gamespark.jp/rss20/index.rdf": {
@@ -5173,7 +5174,7 @@
         "http://www.gamespark.jp/article/2026/09/12/172177.html",
         "http://www.gamespark.jp/article/2026/09/12/172178.html"
       ],
-      "last_checked": "2026-09-12T13:42:11.591517+00:00",
+      "last_checked": "2026-09-12T16:52:58.538629+00:00",
       "initialized": true
     },
     "ff14:https://automaton-media.com/feed/": {
@@ -5581,12 +5582,11 @@
       ],
       "etag": "W/\"11bb900f2aeed667a6815f033ed4d164\"",
       "modified": "Sat, 12 Sep 2026 13:28:35 GMT",
-      "last_checked": "2026-09-12T13:42:12.010666+00:00",
+      "last_checked": "2026-09-12T16:52:58.728107+00:00",
       "initialized": true
     },
     "ff14:https://news.denfaminicogamer.jp/feed": {
       "seen": [
-        "https://news.denfaminicogamer.jp/news/2609042c",
         "https://news.denfaminicogamer.jp/news/2609042f",
         "https://news.denfaminicogamer.jp/news/260904s",
         "https://news.denfaminicogamer.jp/news/2609042r",
@@ -5985,11 +5985,12 @@
         "https://news.denfaminicogamer.jp/news/260912u",
         "https://news.denfaminicogamer.jp/news/260912y",
         "https://news.denfaminicogamer.jp/news/2609122b",
-        "https://news.denfaminicogamer.jp/news/260912x"
+        "https://news.denfaminicogamer.jp/news/260912x",
+        "https://news.denfaminicogamer.jp/news/2609122c"
       ],
-      "etag": "W/\"20c2f4b6f19e73ff68dd03d796518c11\"",
-      "modified": "Sat, 12 Sep 2026 13:35:44 GMT",
-      "last_checked": "2026-09-12T13:42:13.622485+00:00",
+      "etag": "W/\"db05f134fdf0d4320283372489d5bc3b\"",
+      "modified": "Sat, 12 Sep 2026 15:00:13 GMT",
+      "last_checked": "2026-09-12T16:53:00.427977+00:00",
       "initialized": true
     },
     "https://www.youtube.com/feeds/videos.xml?channel_id=UCpx2BZg8ABgaDV50sGJtWAg": {
@@ -6020,7 +6021,7 @@
         "yt:video:5xraioACduM",
         "yt:video:ex5hfbzA9is"
       ],
-      "last_checked": "2026-09-12T13:42:13.703696+00:00",
+      "last_checked": "2026-09-12T16:53:00.812751+00:00",
       "initialized": true
     },
     "https://news.google.com/rss/search?q=%22%E3%83%95%E3%82%A1%E3%82%A4%E3%83%8A%E3%83%AB%E3%83%95%E3%82%A1%E3%83%B3%E3%82%BF%E3%82%B8%E3%83%BCXIV%22%20OR%20%22FF14%22&hl=ja&gl=JP&ceid=JP:ja": {
@@ -6482,7 +6483,8 @@
       "username": "ファイナルファンタジーXIV ニュース",
       "webhook_env": "DISCORD_WEBHOOK_URL_FF14",
       "notified": [
-        72
+        72,
+        24
       ]
     },
     "tag:jp.finalfantasyxiv.com,2023-04-01:/lodestone/lodestone/topics/detail/e38c930926e115badf9961789e9783cf62371967": {
